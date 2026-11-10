@@ -45,7 +45,8 @@ services:
       - default
       - easypanel
     restart: always
-    read_only: true
+    # No read_only here: the entrypoint's `bundle check` rewrites /app/Gemfile.lock and
+    # crash-loops rails on a read-only root filesystem.
     tmpfs:
       - /tmp
     cap_drop:
