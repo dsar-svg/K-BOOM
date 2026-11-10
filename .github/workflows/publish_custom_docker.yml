@@ -3,7 +3,7 @@ name: Publish Custom Docker Image
 on:
   push:
     branches:
-      - claude/init-tvh2q7
+      - main
   workflow_dispatch:
 
 env:

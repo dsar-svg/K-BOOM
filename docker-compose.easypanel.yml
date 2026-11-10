@@ -1,6 +1,6 @@
 services:
   rails:
-    image: ghcr.io/dsar-svg/chatwoot_romicars:latest
+    image: ghcr.io/dsar-svg/k-boom:latest
     depends_on:
       - postgres
       - redis
@@ -58,7 +58,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
 
   sidekiq:
-    image: ghcr.io/dsar-svg/chatwoot_romicars:latest
+    image: ghcr.io/dsar-svg/k-boom:latest
     depends_on:
       - postgres
       - redis
