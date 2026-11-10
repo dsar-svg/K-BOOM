@@ -128,30 +128,10 @@ services:
     networks:
       - default
 
-  # Watches ghcr.io for a newer chatwoot_romicars:latest digest and auto pull+recreates
-  # just the labeled containers below (rails, sidekiq) - the same pull/stop/rm/up cycle
-  # done by hand today. Scoped via --label-enable so it never touches postgres/redis or
-  # any other stack on this host.
-  #
-  # containrrr/watchtower is archived/stale (last published 2023) and speaks an old
-  # Docker API version - it fails outright ("client version 1.25 is too old") against
-  # current Docker engines. nickfedor/watchtower is the actively maintained fork.
-  #
-  # WATCHTOWER_ROLLING_RESTART is intentionally omitted: rails depends_on postgres/redis,
-  # which aren't watchtower-labeled, and rolling-restart mode refuses to update a
-  # container whose dependency graph it doesn't fully manage ("Rolling restart
-  # compatibility validation failed").
-  watchtower:
-    image: nickfedor/watchtower:latest
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_LABEL_ENABLE=true
-      - WATCHTOWER_POLL_INTERVAL=60
-      - WATCHTOWER_CLEANUP=true
-    networks:
-      - default
+  # No watchtower here: the RomiCars stack on this VPS already runs one with
+  # WATCHTOWER_LABEL_ENABLE=true, which is host-wide, so it also auto-updates the
+  # labeled rails/sidekiq containers above. A second instance would race it.
+  # shortcut: depends on the RomiCars watchtower, re-add one here if that stack is removed.
 
 volumes:
   storage_data:
