@@ -9,7 +9,7 @@ json.payload @rates do |rate|
   json.created_at rate.created_at
 end
 
-json.meta {
+json.meta do
   json.count @rates.size
   json.markup_percent Current.account.price_markup_percent
-}
+end

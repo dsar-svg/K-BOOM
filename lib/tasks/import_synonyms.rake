@@ -3,7 +3,7 @@
 namespace :vehicles do
   desc 'Import synonyms from CSV into vehicle_prices'
   task import_synonyms: :environment do
-    csv_path = Rails.root.join('data', 'sinonimos.csv')
+    csv_path = Rails.root.join('data/sinonimos.csv')
     unless File.exist?(csv_path)
       puts "ERROR: #{csv_path} not found"
       next
@@ -41,10 +41,10 @@ namespace :vehicles do
 
       # Find the price by description + brand (and variant if present)
       price = account.vehicle_prices
-                      .where(description: description, vehicle_brand_id: brand.id)
+                     .where(description: description, vehicle_brand_id: brand.id)
 
       if variant_raw.present?
-        variant_normalized = variant_raw.upcase.gsub(',', '.').squeeze(' ').strip
+        variant_normalized = variant_raw.upcase.tr(',', '.').squeeze(' ').strip
         price = price.where(variant: variant_normalized)
       end
 

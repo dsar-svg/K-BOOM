@@ -22,7 +22,7 @@ class VehiclePrice < ApplicationRecord
   scope :by_model, ->(model_id) { where(vehicle_model_id: model_id) if model_id.present? }
 
   scope :by_search, lambda { |search|
-    return all unless search.present?
+    return all if search.blank?
 
     query = "%#{sanitize_sql_like(search)}%"
     where(

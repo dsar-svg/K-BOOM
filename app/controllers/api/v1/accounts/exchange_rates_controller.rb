@@ -30,9 +30,7 @@ class Api::V1::Accounts::ExchangeRatesController < Api::V1::Accounts::BaseContro
   # redone with it right away: the bot quotes the stored amounts.
   def markup
     percent = BigDecimal(params[:percent].to_s, exception: false)
-    unless percent&.between?(0, 100)
-      return render json: { error: 'El porcentaje debe estar entre 0 y 100' }, status: :unprocessable_entity
-    end
+    return render json: { error: 'El porcentaje debe estar entre 0 y 100' }, status: :unprocessable_entity unless percent&.between?(0, 100)
 
     Current.account.update!(price_markup_percent: percent.to_s('F'))
     @rate = Current.account.exchange_rates.ordered.first

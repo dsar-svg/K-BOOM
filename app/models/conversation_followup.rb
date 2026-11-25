@@ -30,7 +30,7 @@ class ConversationFollowup < ApplicationRecord
 
   # Never write to someone at 3am: it earns a block, and a blocked number costs far more
   # than a late nudge. A due row outside the window waits for the next morning.
-  SEND_WINDOW = (8..20).freeze
+  SEND_WINDOW = (8..20)
 
   belongs_to :conversation
   belongs_to :account
@@ -68,6 +68,6 @@ class ConversationFollowup < ApplicationRecord
   def customer_replied?
     return false if sent_at.blank?
 
-    conversation.messages.where(message_type: :incoming).where(created_at: sent_at..).exists?
+    conversation.messages.where(message_type: :incoming).exists?(created_at: sent_at..)
   end
 end

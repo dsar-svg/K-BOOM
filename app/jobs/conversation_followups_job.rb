@@ -154,7 +154,7 @@ class ConversationFollowupsJob < ApplicationJob
 
     return 'cliente_respondio' if conversation.messages
                                               .where(message_type: :incoming)
-                                              .where(created_at: followup.created_at..).exists?
+                                              .exists?(created_at: followup.created_at..)
     return 'conversacion_cerrada' unless conversation.open? || conversation.pending?
     return 'resultado_ya_declarado' if conversation.resolution_type.present?
     return 'venta_registrada' if conversation.sale_amount.present?
@@ -163,9 +163,7 @@ class ConversationFollowupsJob < ApplicationJob
     # Chatwoot would still create the message, as `failed` — so the seller sees a reminder in
     # the thread that never reached the customer. A private note has no window.
     # ...unless the approved template can carry it (see #template_for).
-    if followup.mode == 'auto' && outside_messaging_window?(conversation) && template_for(followup).blank?
-      return 'fuera_de_ventana'
-    end
+    return 'fuera_de_ventana' if followup.mode == 'auto' && outside_messaging_window?(conversation) && template_for(followup).blank?
 
     nil
   end

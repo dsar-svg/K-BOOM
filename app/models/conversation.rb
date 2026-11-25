@@ -97,7 +97,7 @@ class Conversation < ApplicationRecord
   # Reasons only apply to `perdido` closures.
   RESOLUTION_REASONS = %w[sin_stock precio sin_respuesta otro].freeze
   # `requested_product` is only captured for this reason.
-  RESOLUTION_REASON_REQUIRING_PRODUCT = 'sin_stock'
+  RESOLUTION_REASON_REQUIRING_PRODUCT = 'sin_stock'.freeze
 
   # Validated only on change so legacy rows with unexpected values keep saving.
   validates :resolution_type, inclusion: { in: RESOLUTION_TYPES }, allow_nil: true, if: :resolution_type_changed?
@@ -105,7 +105,7 @@ class Conversation < ApplicationRecord
 
   scope :by_resolution_type, ->(type) { where(resolution_type: type) if type.present? }
   scope :by_resolution_reason, ->(reason) { where(resolution_reason: reason) if reason.present? }
-  scope :resolved_between, ->(start_date, end_date) {
+  scope :resolved_between, lambda { |start_date, end_date|
     where(resolved_at: start_date..end_date) if start_date.present? && end_date.present?
   }
   scope :with_sale, -> { where.not(sale_amount: nil) }
@@ -257,7 +257,8 @@ class Conversation < ApplicationRecord
     save
   end
 
-  def resolve_with_outcome(resolution_type:, resolution_reason: nil, resolution_notes: nil, sale_amount: nil, sale_date: nil, sale_invoice: nil, requested_product: nil)
+  def resolve_with_outcome(resolution_type:, resolution_reason: nil, resolution_notes: nil, sale_amount: nil, sale_date: nil, sale_invoice: nil,
+                           requested_product: nil)
     # Blank strings from the API would otherwise fail the inclusion validation, which
     # only allows nil.
     resolution_type = resolution_type.presence

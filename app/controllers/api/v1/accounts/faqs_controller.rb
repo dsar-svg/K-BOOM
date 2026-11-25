@@ -6,9 +6,9 @@ class Api::V1::Accounts::FaqsController < Api::V1::Accounts::BaseController
 
   def index
     @faqs = Current.account.faqs
-                    .by_search(params[:search])
-                    .by_category(params[:category])
-                    .ordered
+                   .by_search(params[:search])
+                   .by_category(params[:category])
+                   .ordered
   end
 
   def show; end

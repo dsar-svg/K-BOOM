@@ -18,7 +18,7 @@ class VehiclePriceExportService
 
   STATIC_PARTS = {
     '[Content_Types].xml' => "#{XML}<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">" \
-                             "<Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>" \
+                             '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' \
                              '<Default Extension="xml" ContentType="application/xml"/>' \
                              "<Override PartName=\"/xl/workbook.xml\" ContentType=\"#{OFFICE}.sheet.main+xml\"/>" \
                              "<Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"#{OFFICE}.worksheet+xml\"/>" \

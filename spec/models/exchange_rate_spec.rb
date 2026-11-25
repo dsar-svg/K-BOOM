@@ -46,14 +46,14 @@ RSpec.describe ExchangeRate do
       account.update!(price_markup_percent: '20')
       price
 
-      rate = described_class.apply!(account, rate: BigDecimal('100'), effective_date: Date.new(2026, 10, 7), source: 'bcv.org.ve')
+      rate = described_class.apply!(account, rate: BigDecimal(100), effective_date: Date.new(2026, 10, 7), source: 'bcv.org.ve')
 
       expect(rate).to have_attributes(effective_date: Date.new(2026, 10, 7), equiv_13: 120)
       expect(price.reload).to have_attributes(monto_bs: 1200, bolivares: 12)
     end
 
     it 'uses 13% for an account that never set a markup' do
-      rate = described_class.apply!(account, rate: BigDecimal('100'), effective_date: Date.current, source: 'bcv.org.ve')
+      rate = described_class.apply!(account, rate: BigDecimal(100), effective_date: Date.current, source: 'bcv.org.ve')
 
       expect(rate.equiv_13).to eq(113)
     end

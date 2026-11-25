@@ -170,18 +170,18 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
 
     render json: {
       kpis: {
-        total_leads:  convs_30.distinct.count(:contact_id),
-        conversion:   lead_conversion_pct(convs_30),
+        total_leads: convs_30.distinct.count(:contact_id),
+        conversion: lead_conversion_pct(convs_30),
         active_chats: lead_conversations(account).where(status: :open).count
       },
       mini_metrics: {
-        new_today:      lead_contacts(account).where('created_at >= ?', today).count,
-        pending:        lead_conversations(account).where(status: :pending).count,
-        high_urgency:   lead_conversations(account).where(priority: %i[high urgent]).where(status: %i[open pending]).count,
-        bot:            lead_conversations(account).where(status: :open).where.not(assignee_agent_bot_id: nil).count,
-        agent:          lead_conversations(account).where(status: :open).where.not(assignee_id: nil).where(assignee_agent_bot_id: nil).count,
+        new_today: lead_contacts(account).where('created_at >= ?', today).count,
+        pending: lead_conversations(account).where(status: :pending).count,
+        high_urgency: lead_conversations(account).where(priority: %i[high urgent]).where(status: %i[open pending]).count,
+        bot: lead_conversations(account).where(status: :open).where.not(assignee_agent_bot_id: nil).count,
+        agent: lead_conversations(account).where(status: :open).where.not(assignee_id: nil).where(assignee_agent_bot_id: nil).count,
         resolved_today: lead_conversations(account).where(status: :resolved)
-                               .where('resolved_at >= ?', today).count
+                                                   .where('resolved_at >= ?', today).count
       }
     }
   end
@@ -194,22 +194,38 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
     items, label = case type
                    when 'new_today'
                      contacts = lead_contacts(account).where(created_at: today..).order(created_at: :desc).limit(50)
-                     [contacts.map { |c| { id: c.id, contact_name: c.name, status: 'Nuevo', agent_name: '—', created_at: c.created_at } }, 'Nuevos Hoy']
+                     [contacts.map do |c|
+                       { id: c.id, contact_name: c.name, status: 'Nuevo', agent_name: '—', created_at: c.created_at }
+                     end, 'Nuevos Hoy']
                    when 'pending'
                      convs = lead_conversations(account).where(status: :pending).includes(:contact, :assignee).order(created_at: :desc).limit(50)
-                     [convs.map { |c| { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Pendiente', agent_name: c.assignee&.name || '—', created_at: c.created_at } }, 'Pendientes']
+                     [convs.map do |c|
+                       { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Pendiente', agent_name: c.assignee&.name || '—', created_at: c.created_at }
+                     end, 'Pendientes']
                    when 'high_urgency'
-                     convs = lead_conversations(account).where(priority: %i[high urgent], status: %i[open pending]).includes(:contact, :assignee).order(priority: :desc).limit(50)
-                     [convs.map { |c| { id: c.display_id, contact_name: c.contact&.name || '—', status: c.status == 'open' ? 'Abierta' : 'Pendiente', agent_name: c.assignee&.name || '—', created_at: c.created_at } }, 'Alta Urgencia']
+                     convs = lead_conversations(account).where(priority: %i[high urgent], status: %i[open pending]).includes(:contact,
+                                                                                                                             :assignee).order(priority: :desc).limit(50)
+                     [convs.map do |c|
+                       { id: c.display_id, contact_name: c.contact&.name || '—', status: c.status == 'open' ? 'Abierta' : 'Pendiente', agent_name: c.assignee&.name || '—', created_at: c.created_at }
+                     end, 'Alta Urgencia']
                    when 'bot'
                      convs = lead_conversations(account).where(status: :open).where.not(assignee_agent_bot_id: nil).includes(:contact).order(created_at: :desc).limit(50)
-                     [convs.map { |c| { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Abierta', agent_name: 'Bot', created_at: c.created_at } }, 'En Bot']
+                     [convs.map do |c|
+                       { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Abierta', agent_name: 'Bot', created_at: c.created_at }
+                     end, 'En Bot']
                    when 'agent'
-                     convs = lead_conversations(account).where(status: :open).where.not(assignee_id: nil).where(assignee_agent_bot_id: nil).includes(:contact, :assignee).order(created_at: :desc).limit(50)
-                     [convs.map { |c| { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Abierta', agent_name: c.assignee&.name || '—', created_at: c.created_at } }, 'En Agente']
+                     convs = lead_conversations(account).where(status: :open).where.not(assignee_id: nil).where(assignee_agent_bot_id: nil).includes(
+                       :contact, :assignee
+                     ).order(created_at: :desc).limit(50)
+                     [convs.map do |c|
+                       { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Abierta', agent_name: c.assignee&.name || '—', created_at: c.created_at }
+                     end, 'En Agente']
                    when 'resolved_today'
-                     convs = lead_conversations(account).where(status: :resolved).where('resolved_at >= ?', today).includes(:contact, :assignee).order(resolved_at: :desc).limit(50)
-                     [convs.map { |c| { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Resuelta', agent_name: c.assignee&.name || '—', created_at: c.created_at } }, 'Resueltos Hoy']
+                     convs = lead_conversations(account).where(status: :resolved).where('resolved_at >= ?', today).includes(:contact,
+                                                                                                                            :assignee).order(resolved_at: :desc).limit(50)
+                     [convs.map do |c|
+                       { id: c.display_id, contact_name: c.contact&.name || '—', status: 'Resuelta', agent_name: c.assignee&.name || '—', created_at: c.created_at }
+                     end, 'Resueltos Hoy']
                    else
                      [[], type]
                    end
@@ -230,14 +246,14 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
       won      = convs.where(status: :resolved, resolution_type: 'ganado').count
 
       {
-        id:                  agent.id,
-        name:                agent.name,
-        email:               agent.email,
-        avatar_url:          agent.avatar_url,
-        assigned:            assigned,
-        resolved:            res,
-        won:                 won,
-        conversion:          assigned.positive? ? (won.to_f / assigned * 100).round(1) : 0,
+        id: agent.id,
+        name: agent.name,
+        email: agent.email,
+        avatar_url: agent.avatar_url,
+        assigned: assigned,
+        resolved: res,
+        won: won,
+        conversion: assigned.positive? ? (won.to_f / assigned * 100).round(1) : 0,
         avg_response_minutes: avg_first_response(account, agent.id, period)
       }
     end
@@ -272,7 +288,7 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
   def contact_locations
     account = Current.account
     counts = located_contacts(account).group(CONTACT_CITY)
-                                   .count
+                                      .count
 
     located = counts.except(nil)
 
@@ -319,7 +335,7 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
 
   def profit
     url = ENV.fetch('PROFIT_API_URL', nil)
-    return render json: empty_profit unless url.present?
+    return render json: empty_profit if url.blank?
 
     token = authenticate_profit(url)
     return render json: empty_profit unless token
@@ -340,8 +356,8 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
     # This endpoint reports itself as "30 días" but used to query all history, so the
     # percentages never matched the daily/by_agent series below them.
     resolved = lead_conversations(account)
-                      .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
-                      .where(resolved_at: period)
+               .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
+               .where(resolved_at: period)
 
     # One grouped query instead of ~10 separate COUNT round trips.
     counts_by_type = resolved.group(:resolution_type).count
@@ -383,12 +399,12 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
       # it cannot act on, and this one measures how many leads go quiet.
       abandonado: {
         count: lead_conversations(account).where(status: :resolved, resolution_type: 'abandonado')
-                      .where(resolved_at: period).count
+                                          .where(resolved_at: period).count
       },
       # Also outside: the lead moved to a WhatsApp conversation and is counted there.
       derivado: {
         count: lead_conversations(account).where(status: :resolved, resolution_type: 'derivado')
-                      .where(resolved_at: period).count
+                                          .where(resolved_at: period).count
       },
       # Sales that picked up a conversation from the last two weeks (Conversations::ContinuityJob):
       # leads that looked lost the first time and came back to buy.
@@ -404,9 +420,9 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
     account = Current.account
 
     scope = lead_conversations(account)
-                   .where(status: :resolved, resolution_reason: Conversation::RESOLUTION_REASON_REQUIRING_PRODUCT)
-                   .where.not(requested_product: [nil, ''])
-                   .where(resolved_at: period)
+            .where(status: :resolved, resolution_reason: Conversation::RESOLUTION_REASON_REQUIRING_PRODUCT)
+            .where.not(requested_product: [nil, ''])
+            .where(resolved_at: period)
 
     # Totals come from SQL over the whole window. They used to be derived from a
     # `limit(100)` slice, so both counters silently capped at 100 once the shop had a
@@ -535,9 +551,9 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
   # memory just to subtract two timestamps.
   def avg_first_response(account, agent_id, range)
     average = lead_conversations(account)
-                     .where(assignee_id: agent_id, created_at: range)
-                     .where.not(first_reply_created_at: nil)
-                     .average(FIRST_RESPONSE_MINUTES)
+              .where(assignee_id: agent_id, created_at: range)
+              .where.not(first_reply_created_at: nil)
+              .average(FIRST_RESPONSE_MINUTES)
 
     average.to_f.round(1)
   end
@@ -608,8 +624,8 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
     since = 30.days.ago
     convs = lead_conversations(account).where(created_at: since..Time.current)
     resolved = lead_conversations(account)
-                      .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
-                      .where(resolved_at: since..)
+               .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
+               .where(resolved_at: since..)
     by_type = resolved.group(:resolution_type).count
     ganado = by_type.fetch('ganado', 0)
     perdido = by_type.fetch('perdido', 0)
@@ -897,24 +913,24 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
   # tables of the resolution report was permanently zero.
   def daily_resolution_stats(account, range)
     lead_conversations(account)
-           .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
-           .where(resolved_at: range)
-           .group(Arel.sql('DATE(resolved_at)'))
-           .group(:resolution_type)
-           .count
-           .map { |(date, type), count| { date: date.to_s, type: type, count: count } }
+      .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
+      .where(resolved_at: range)
+      .group(Arel.sql('DATE(resolved_at)'))
+      .group(:resolution_type)
+      .count
+      .map { |(date, type), count| { date: date.to_s, type: type, count: count } }
   end
 
   def agent_resolution_stats(account, range)
     lead_conversations(account)
-           .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
-           .where(resolved_at: range)
-           .where.not(assignee_id: nil)
-           .joins('LEFT JOIN users ON users.id = conversations.assignee_id')
-           .group('users.name')
-           .group(:resolution_type)
-           .count
-           .map { |(name, type), count| { agent: name, type: type, count: count } }
+      .where(status: :resolved, resolution_type: Conversation::DECLARED_RESOLUTION_TYPES)
+      .where(resolved_at: range)
+      .where.not(assignee_id: nil)
+      .joins('LEFT JOIN users ON users.id = conversations.assignee_id')
+      .group('users.name')
+      .group(:resolution_type)
+      .count
+      .map { |(name, type), count| { agent: name, type: type, count: count } }
   end
 
   def win_loss_cache_key(account)
@@ -1008,8 +1024,8 @@ class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseCont
 
   def conversation_samples(account, memory)
     scope = lead_conversations(account)
-                   .where(status: :resolved, resolved_at: 30.days.ago..)
-                   .includes(:messages, :assignee, :inbox)
+            .where(status: :resolved, resolved_at: 30.days.ago..)
+            .includes(:messages, :assignee, :inbox)
 
     {
       perdidas: transcripts(scope.where(resolution_type: 'perdido'), SAMPLE_LOST, memory.dig('perdidas', 'ids')),

@@ -10,7 +10,7 @@ class Conversations::BotTakeoverJob < ApplicationJob
   def perform(conversation)
     return unless conversation.open? && conversation.assignee_agent_bot_id.blank?
     # Echoes from the WhatsApp app on the phone have no sender.
-    return if conversation.messages.outgoing.where(private: false, sender_type: [nil, 'User']).exists?
+    return if conversation.messages.outgoing.exists?(private: false, sender_type: [nil, 'User'])
 
     bot = takeover_bot(conversation)
     return if bot&.outgoing_url.blank?

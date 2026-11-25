@@ -6,7 +6,7 @@ class ProductInquiry < ApplicationRecord
 
   scope :by_canal, ->(canal) { where(canal: canal) if canal.present? }
   scope :by_marca, ->(marca) { where(marca_buscada: marca) if marca.present? }
-  scope :by_date_range, ->(start_date, end_date) {
+  scope :by_date_range, lambda { |start_date, end_date|
     where(created_at: start_date..end_date) if start_date.present? && end_date.present?
   }
   scope :not_found, -> { where(encontrado: false) }

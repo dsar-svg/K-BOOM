@@ -218,7 +218,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   # comes as an array — so every contact filter and filtered export answered 500.
   def contact_filter_params
     params.permit(:page, :sort, payload: [:attribute_key, :attribute_model, :filter_operator, :query_operator, :custom_attribute_type,
-                                         :values, { values: [] }])
+                                          :values, { values: [] }])
   end
 
   def set_include_contact_inboxes

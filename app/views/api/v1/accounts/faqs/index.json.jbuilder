@@ -12,6 +12,6 @@ json.payload @faqs do |faq|
   json.updated_at faq.updated_at
 end
 
-json.meta {
+json.meta do
   json.count @faqs.size
-}
+end

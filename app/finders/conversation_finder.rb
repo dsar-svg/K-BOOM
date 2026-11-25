@@ -200,7 +200,7 @@ class ConversationFinder
   end
 
   def filter_by_resolution_type
-    return unless params[:resolution_type].present?
+    return if params[:resolution_type].blank?
 
     @conversations = @conversations.where(resolution_type: params[:resolution_type])
   end
