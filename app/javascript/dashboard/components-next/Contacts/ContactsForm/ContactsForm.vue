@@ -4,11 +4,9 @@ import { useI18n } from 'vue-i18n';
 import { required, email } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import { splitName } from '@chatwoot/utils';
-import countries from 'shared/constants/countries.js';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useAccount } from 'dashboard/composables/useAccount';
 import Input from 'dashboard/components-next/input/Input.vue';
-import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 import CompanySelector from 'dashboard/components-next/Companies/CompanySelector.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import PhoneNumberInput from 'dashboard/components-next/phonenumberinput/PhoneNumberInput.vue';
@@ -168,10 +166,6 @@ const prepareStateBasedOnProps = () => {
   });
 };
 
-const countryOptions = computed(() =>
-  countries.map(({ name, id }) => ({ label: name, value: id }))
-);
-
 const editDetailsForm = computed(() =>
   Object.keys(FORM_CONFIG).map(key => ({
     key,
@@ -246,11 +240,6 @@ const getMessageType = key => {
     : 'info';
 };
 
-const handleLocationUpdate = value => {
-  state.additionalAttributes.location = value;
-  emit('update', state);
-};
-
 const handleCompanySelection = async ({ id, name }) => {
   state.companyId = id || '';
   state.additionalAttributes.companyName = name || '';
@@ -293,7 +282,7 @@ defineExpose({
           <Input
             v-if="item.key === 'LOCATION'"
             v-model="getFormBinding(item.key).value"
-            :placeholder="'Ej: Valencia, Carabobo'"
+            placeholder="Ej: Valencia, Carabobo"
             :show-border="isDetailsView"
             class="[&>div>button]:h-8"
             :class="{
@@ -340,7 +329,9 @@ defineExpose({
     </div>
     <!-- Vehicle fields -->
     <div class="flex flex-col items-start gap-2">
-      <span class="py-1 text-sm font-medium text-n-slate-12">Vehículo</span>
+      <span class="py-1 text-sm font-medium text-n-slate-12">{{
+        t('CONTACTS_LAYOUT.CARD.VEHICLE.TITLE')
+      }}</span>
       <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
           v-model="state.customAttributes.marca_vehiculo"

@@ -1,5 +1,7 @@
 {
   "LOGIN": {
+    "SUBTITLE": "Access the management panel",
+    "FOOTER_NOTE": "Plataforma de gestión de clientes © Romicars",
     "TITLE": "Login to RomiCars",
     "EMAIL": {
       "LABEL": "Email",

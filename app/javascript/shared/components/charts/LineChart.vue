@@ -1,5 +1,5 @@
 <script>
-import { Line } from 'vue-chartjs';
+import { Line as ChartLine } from 'vue-chartjs';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -23,7 +23,7 @@ ChartJS.register(
 
 export default {
   name: 'LineChart',
-  components: { Line },
+  components: { ChartLine },
   props: {
     data: { type: Object, required: true },
     options: { type: Object, default: () => ({}) },
@@ -32,5 +32,5 @@ export default {
 </script>
 
 <template>
-  <Line :data="data" :options="options" />
+  <ChartLine :data="data" :options="options" />
 </template>

@@ -154,10 +154,14 @@ const copyConversationId = async () => {
                   />
                 </div>
                 <div class="bg-n-alpha-2 rounded-lg p-3">
-                  <p class="text-xs font-medium text-n-slate-11 mb-1 uppercase tracking-wide">
-                    Resumen del Asistente
+                  <p
+                    class="text-xs font-medium text-n-slate-11 mb-1 uppercase tracking-wide"
+                  >
+                    {{ $t('CONVERSATION.BOT_SUMMARY.TITLE') }}
                   </p>
-                  <p class="text-sm text-n-slate-12 leading-relaxed whitespace-pre-wrap">
+                  <p
+                    class="text-sm text-n-slate-12 leading-relaxed whitespace-pre-wrap"
+                  >
                     {{ botSummary }}
                   </p>
                 </div>
@@ -165,7 +169,8 @@ const copyConversationId = async () => {
                   v-if="currentContact.custom_attributes?.handoff_reason"
                   class="mt-2 text-xs text-n-slate-11"
                 >
-                  Motivo: {{ currentContact.custom_attributes.handoff_reason }}
+                  {{ $t('CONVERSATION.BOT_SUMMARY.HANDOFF_REASON') }}
+                  {{ currentContact.custom_attributes.handoff_reason }}
                 </p>
               </div>
             </template>

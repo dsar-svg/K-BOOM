@@ -316,18 +316,24 @@ export default {
       <h1 class="romicars-title">
         {{ replaceInstallationName($t('LOGIN.TITLE')) }}
       </h1>
-      <p class="romicars-subtitle">Accede al panel de gestión</p>
+      <p class="romicars-subtitle">{{ $t('LOGIN.SUBTITLE') }}</p>
 
       <!-- Form -->
       <div v-if="!email">
-        <div v-if="showGoogleOAuth || showSamlLogin" class="flex flex-col gap-4 mb-6">
+        <div
+          v-if="showGoogleOAuth || showSamlLogin"
+          class="flex flex-col gap-4 mb-6"
+        >
           <GoogleOAuthButton v-if="showGoogleOAuth" />
           <div v-if="showSamlLogin" class="text-center">
             <router-link
               to="/app/login/sso"
               class="inline-flex justify-center w-full px-4 py-3 items-center bg-slate-100 rounded-lg ring-1 ring-inset ring-slate-200 hover:bg-slate-50 transition-colors"
             >
-              <Icon icon="i-lucide-lock-keyhole" class="size-5 text-slate-500" />
+              <Icon
+                icon="i-lucide-lock-keyhole"
+                class="size-5 text-slate-500"
+              />
               <span class="ml-2 text-base font-medium text-slate-700">
                 {{ $t('LOGIN.SAML.LABEL') }}
               </span>
@@ -389,7 +395,10 @@ export default {
           </button>
         </form>
 
-        <p v-if="showSignupLink" class="mt-5 text-sm text-center text-slate-400">
+        <p
+          v-if="showSignupLink"
+          class="mt-5 text-sm text-center text-slate-400"
+        >
           {{ $t('COMMON.OR') }}
           <router-link
             to="auth/signup"
@@ -406,7 +415,7 @@ export default {
 
       <!-- Footer -->
       <p class="mt-8 text-xs text-center text-slate-400">
-        Plataforma de gestión de clientes © Romicars
+        {{ $t('LOGIN.FOOTER_NOTE') }}
       </p>
     </section>
   </main>
@@ -473,7 +482,9 @@ export default {
   animation:
     orb-2-move 24s ease-in-out infinite alternate,
     orb-pulse 11s ease-in-out infinite alternate;
-  animation-delay: -6s, -4s;
+  animation-delay:
+    -6s,
+    -4s;
 }
 
 .orb-3 {
@@ -489,7 +500,9 @@ export default {
   animation:
     orb-3-move 21s ease-in-out infinite alternate,
     orb-pulse 7s ease-in-out infinite alternate;
-  animation-delay: -10s, -2s;
+  animation-delay:
+    -10s,
+    -2s;
 }
 
 .orb-4 {
@@ -507,27 +520,53 @@ export default {
 }
 
 @keyframes orb-1-move {
-  0%   { transform: translate(0, 0) scale(1); }
-  40%  { transform: translate(8vw, 10vh) scale(1.06); }
-  100% { transform: translate(5vw, 18vh) scale(0.94); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(8vw, 10vh) scale(1.06);
+  }
+  100% {
+    transform: translate(5vw, 18vh) scale(0.94);
+  }
 }
 @keyframes orb-2-move {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-12vw, -9vh) scale(1.08); }
-  100% { transform: translate(-7vw, -16vh) scale(0.92); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-12vw, -9vh) scale(1.08);
+  }
+  100% {
+    transform: translate(-7vw, -16vh) scale(0.92);
+  }
 }
 @keyframes orb-3-move {
-  0%   { transform: translate(0, 0) scale(1); }
-  35%  { transform: translate(-9vw, 9vh) scale(1.1); }
-  100% { transform: translate(9vw, -8vh) scale(0.9); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    transform: translate(-9vw, 9vh) scale(1.1);
+  }
+  100% {
+    transform: translate(9vw, -8vh) scale(0.9);
+  }
 }
 @keyframes orb-4-move {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(13vw, -11vh); }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(13vw, -11vh);
+  }
 }
 @keyframes orb-pulse {
-  0%   { opacity: 0.5; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* ---- Floating particles ---- */
@@ -539,22 +578,102 @@ export default {
   will-change: transform, opacity;
 }
 
-.p-1  { width: 3px;  height: 3px;  left: 9%;  top: 88%; animation-duration: 12s; animation-delay: 0s; }
-.p-2  { width: 2px;  height: 2px;  left: 20%; top: 91%; animation-duration: 16s; animation-delay: -3s; }
-.p-3  { width: 4px;  height: 4px;  left: 36%; top: 87%; animation-duration: 10s; animation-delay: -7s; }
-.p-4  { width: 2px;  height: 2px;  left: 50%; top: 94%; animation-duration: 14s; animation-delay: -1s; }
-.p-5  { width: 3px;  height: 3px;  left: 63%; top: 86%; animation-duration: 11s; animation-delay: -9s; }
-.p-6  { width: 5px;  height: 5px;  left: 78%; top: 80%; animation-duration: 18s; animation-delay: -5s; }
-.p-7  { width: 2px;  height: 2px;  left: 29%; top: 96%; animation-duration: 13s; animation-delay: -6s; }
-.p-8  { width: 3px;  height: 3px;  left: 71%; top: 83%; animation-duration: 9s;  animation-delay: -2s; }
-.p-9  { width: 2px;  height: 2px;  left: 44%; top: 89%; animation-duration: 15s; animation-delay: -11s; }
-.p-10 { width: 4px;  height: 4px;  left: 86%; top: 90%; animation-duration: 12s; animation-delay: -8s; }
+.p-1 {
+  width: 3px;
+  height: 3px;
+  left: 9%;
+  top: 88%;
+  animation-duration: 12s;
+  animation-delay: 0s;
+}
+.p-2 {
+  width: 2px;
+  height: 2px;
+  left: 20%;
+  top: 91%;
+  animation-duration: 16s;
+  animation-delay: -3s;
+}
+.p-3 {
+  width: 4px;
+  height: 4px;
+  left: 36%;
+  top: 87%;
+  animation-duration: 10s;
+  animation-delay: -7s;
+}
+.p-4 {
+  width: 2px;
+  height: 2px;
+  left: 50%;
+  top: 94%;
+  animation-duration: 14s;
+  animation-delay: -1s;
+}
+.p-5 {
+  width: 3px;
+  height: 3px;
+  left: 63%;
+  top: 86%;
+  animation-duration: 11s;
+  animation-delay: -9s;
+}
+.p-6 {
+  width: 5px;
+  height: 5px;
+  left: 78%;
+  top: 80%;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+.p-7 {
+  width: 2px;
+  height: 2px;
+  left: 29%;
+  top: 96%;
+  animation-duration: 13s;
+  animation-delay: -6s;
+}
+.p-8 {
+  width: 3px;
+  height: 3px;
+  left: 71%;
+  top: 83%;
+  animation-duration: 9s;
+  animation-delay: -2s;
+}
+.p-9 {
+  width: 2px;
+  height: 2px;
+  left: 44%;
+  top: 89%;
+  animation-duration: 15s;
+  animation-delay: -11s;
+}
+.p-10 {
+  width: 4px;
+  height: 4px;
+  left: 86%;
+  top: 90%;
+  animation-duration: 12s;
+  animation-delay: -8s;
+}
 
 @keyframes particle-float {
-  0%   { transform: translateY(0) translateX(0);     opacity: 0; }
-  6%   { opacity: 0.9; }
-  88%  { opacity: 0.3; }
-  100% { transform: translateY(-96vh) translateX(25px); opacity: 0; }
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.9;
+  }
+  88% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-96vh) translateX(25px);
+    opacity: 0;
+  }
 }
 
 /* ---- Overlay sections (MFA / session limit) ---- */
