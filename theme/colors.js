@@ -1,6 +1,4 @@
 const {
-  green,
-  greenDark,
   yellow,
   yellowDark,
   slate,
@@ -10,32 +8,33 @@ const {
 } = require('@radix-ui/colors');
 
 export const colors = {
-  // RomiCars logo blue palette anchored at #1F2188
+  // Kaboom Travel logo blue palette anchored at #344DDD
   woot: {
-    25:  '#FDFDFF',
-    50:  '#F8F8FF',
-    75:  '#F0F1FE',
-    100: '#E6E7FF',
-    200: '#CBCDFF',
-    300: '#9B9EF0',
-    400: '#5559E0',
-    500: '#1F2188',
-    600: '#1A1C74',
-    700: '#141650',
-    800: '#0E1030',
-    900: '#080A1E',
+    25:  '#FBFCFF',
+    50:  '#F4F6FF',
+    75:  '#EBEFFF',
+    100: '#DFE5FF',
+    200: '#C0CBFF',
+    300: '#93A2F8',
+    400: '#5B6DEA',
+    500: '#344DDD',
+    600: '#2A3EBC',
+    700: '#1F2E8C',
+    800: '#151E5A',
+    900: '#0C1234',
   },
+  // Kaboom Travel logo mint palette anchored at #0AE5A1
   green: {
-    50: greenDark.green12,
-    100: green.green6,
-    200: green.green7,
-    300: green.green8,
-    400: greenDark.green10,
-    500: greenDark.green9,
-    600: green.green10,
-    700: green.green11,
-    800: greenDark.green7,
-    900: greenDark.green6,
+    50:  '#EDFFF9',
+    100: '#D0FCEC',
+    200: '#9FF6D6',
+    300: '#63EEBC',
+    400: '#27E8A6',
+    500: '#0AE5A1',
+    600: '#06BD84',
+    700: '#03815B',
+    800: '#046145',
+    900: '#03392A',
   },
   yellow: {
     50: yellow.yellow2,

@@ -27,7 +27,7 @@
   display_title: 'Logo'
   description: 'The logo that would be used on the dashboard, login page etc.'
 - name: LOGO_DARK
-  value: '/brand-assets/logotipo.png'
+  value: '/brand-assets/logotipo_dark.png'
   display_title: 'Logo Dark Mode'
   description: 'The logo that would be used on the dashboard, login page etc. for dark mode'
 - name: BRAND_URL
