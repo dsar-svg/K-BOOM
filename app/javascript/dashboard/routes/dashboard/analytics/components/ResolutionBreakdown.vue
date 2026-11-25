@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
-import api from 'dashboard/api/romicarsAnalytics';
+import api from 'dashboard/api/kaboomAnalytics';
 
 const props = defineProps({
   params: { type: Object, default: () => ({}) },

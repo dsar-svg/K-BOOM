@@ -32,7 +32,7 @@ module.exports = {
       },
     },
     {
-      // Romicars-only screens. This is a single-tenant Spanish deployment and these
+      // Kaboom Travel-only screens. This is a single-tenant Spanish deployment and these
       // views are never localised, so routing their copy through i18n keys would add
       // indirection with no translation behind it.
       files: [

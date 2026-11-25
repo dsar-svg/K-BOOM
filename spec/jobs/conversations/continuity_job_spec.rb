@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Conversations::ContinuityJob do
   let(:account) { create(:account) }
-  let(:inbox) { create(:inbox, account: account, name: 'Instagram Romicars') }
+  let(:inbox) { create(:inbox, account: account, name: 'Instagram Kaboom Travel') }
   let(:contact) { create(:contact, account: account) }
 
   def conversation_for(contact, **attrs)

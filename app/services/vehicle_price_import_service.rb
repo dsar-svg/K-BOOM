@@ -2,17 +2,17 @@
 
 class VehiclePriceImportService
   MODEL_MAPPING = {
-    'BUS/VAN/TRUCK' => ['DONGFENG', 'MINI'],
-    'BRAVA' => ['DONGFENG', 'MINI'],
-    'ZNA' => ['DONGFENG', 'ZNA'],
-    'S30' => ['DONGFENG', 'S30'],
+    'BUS/VAN/TRUCK' => %w[DONGFENG MINI],
+    'BRAVA' => %w[DONGFENG MINI],
+    'ZNA' => %w[DONGFENG ZNA],
+    'S30' => %w[DONGFENG S30],
     'HAIMA7' => ['HAIMA', 'HAIMA 7'],
     'HAIMA 7' => ['HAIMA', 'HAIMA 7'],
-    'ZOTYE' => ['ZOTYE', 'NOMADA'],
+    'ZOTYE' => %w[ZOTYE NOMADA],
     'CHANA' => ['CHANA', 'CHANA 1.1'],
-    'ARAUCA' => ['CHERY', 'ARAUCA'],
-    'ORINOCO' => ['CHERY', 'ORINOCO'],
-    'X1' => ['CHERY', 'X1'],
+    'ARAUCA' => %w[CHERY ARAUCA],
+    'ORINOCO' => %w[CHERY ORINOCO],
+    'X1' => %w[CHERY X1],
     '2018' => ['CHERY', 'QQ 2018'],
     'TIGGO 2.0' => ['CHERY', 'TIGGO 2.0'],
     'TIGGO 2.4' => ['CHERY', 'TIGGO 2.0'],
@@ -53,9 +53,7 @@ class VehiclePriceImportService
   def parse_csv
     content = @file.read
     utf8 = content.dup.force_encoding('UTF-8')
-    unless utf8.valid_encoding?
-      utf8 = content.dup.force_encoding('Windows-1252').encode('UTF-8', invalid: :replace, undef: :replace)
-    end
+    utf8 = content.dup.force_encoding('Windows-1252').encode('UTF-8', invalid: :replace, undef: :replace) unless utf8.valid_encoding?
     CSV.parse(utf8, headers: true).map(&:to_h)
   end
 
@@ -141,6 +139,6 @@ class VehiclePriceImportService
   end
 
   def normalize_variant(value)
-    value.to_s.strip.upcase.gsub(',', '.').squeeze(' ').strip
+    value.to_s.strip.upcase.tr(',', '.').squeeze(' ').strip
   end
 end

@@ -27,7 +27,7 @@ const actions = {
       commit(types.default.SET_FAQ_UI_FLAG, { fetchingList: false });
     } catch (error) {
       commit(types.default.SET_FAQ_UI_FLAG, { fetchingList: false });
-      return throwErrorMessage(error);
+      throwErrorMessage(error);
     }
   },
 
@@ -65,7 +65,7 @@ const actions = {
       commit(types.default.SET_FAQ_UI_FLAG, { deletingItem: false });
     } catch (error) {
       commit(types.default.SET_FAQ_UI_FLAG, { deletingItem: false });
-      return throwErrorMessage(error);
+      throwErrorMessage(error);
     }
   },
 };

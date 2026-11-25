@@ -3,7 +3,7 @@
 namespace :vehicles do
   desc 'Seed vehicle brands, models and prices from CSV'
   task :seed, [:csv_path] => :environment do |_t, args|
-    csv_path = args[:csv_path] || Rails.root.join('data', 'vehicle_prices.csv')
+    csv_path = args[:csv_path] || Rails.root.join('data/vehicle_prices.csv')
     account = Account.first
 
     unless account
@@ -14,7 +14,7 @@ namespace :vehicles do
     puts "Seeding vehicle data for account #{account.id}..."
 
     brands_data = {
-      'DONGFENG' => ['MINI', 'ZNA', 'S30'],
+      'DONGFENG' => %w[MINI ZNA S30],
       'HAIMA' => ['HAIMA 7'],
       'ZOTYE' => ['NOMADA'],
       'CHANA' => ['CHANA 1.1'],

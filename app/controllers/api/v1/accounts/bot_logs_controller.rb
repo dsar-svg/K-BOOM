@@ -16,11 +16,11 @@ class Api::V1::Accounts::BotLogsController < Api::V1::Accounts::BaseController
       meta: {
         total: @logs.count,
         by_tipo: Current.account.bot_logs
-                         .recent(params[:days]&.to_i || 30)
-                         .group(:tipo_evento).count,
+                        .recent(params[:days]&.to_i || 30)
+                        .group(:tipo_evento).count,
         by_severidad: Current.account.bot_logs
-                              .recent(params[:days]&.to_i || 30)
-                              .group(:severidad).count
+                             .recent(params[:days]&.to_i || 30)
+                             .group(:severidad).count
       }
     }
   end

@@ -129,7 +129,7 @@ services:
     networks:
       - default
 
-  # Watches ghcr.io for a newer chatwoot_romicars:latest digest and auto pull+recreates
+  # Watches ghcr.io for a newer ghcr.io/dsar-svg/k-boom:latest digest and auto pull+recreates
   # just the labeled containers below (rails, sidekiq) - the same pull/stop/rm/up cycle
   # done by hand today. Scoped via --label-enable so it never touches postgres/redis or
   # any other stack on this host.

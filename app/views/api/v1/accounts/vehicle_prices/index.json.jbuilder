@@ -28,6 +28,6 @@ json.payload @prices do |price|
   end
 end
 
-json.meta {
+json.meta do
   json.count @prices.size
-}
+end

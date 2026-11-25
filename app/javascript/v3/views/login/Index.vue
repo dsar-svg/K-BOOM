@@ -258,28 +258,28 @@ export default {
 </script>
 
 <template>
-  <main class="romicars-login-root">
+  <main class="kaboom-login-root">
     <!-- Animated background -->
-    <div class="romicars-bg" aria-hidden="true">
-      <div class="romicars-orb orb-1" />
-      <div class="romicars-orb orb-2" />
-      <div class="romicars-orb orb-3" />
-      <div class="romicars-orb orb-4" />
+    <div class="kaboom-bg" aria-hidden="true">
+      <div class="kaboom-orb orb-1" />
+      <div class="kaboom-orb orb-2" />
+      <div class="kaboom-orb orb-3" />
+      <div class="kaboom-orb orb-4" />
       <!-- Floating particles -->
-      <div class="romicars-p p-1" />
-      <div class="romicars-p p-2" />
-      <div class="romicars-p p-3" />
-      <div class="romicars-p p-4" />
-      <div class="romicars-p p-5" />
-      <div class="romicars-p p-6" />
-      <div class="romicars-p p-7" />
-      <div class="romicars-p p-8" />
-      <div class="romicars-p p-9" />
-      <div class="romicars-p p-10" />
+      <div class="kaboom-p p-1" />
+      <div class="kaboom-p p-2" />
+      <div class="kaboom-p p-3" />
+      <div class="kaboom-p p-4" />
+      <div class="kaboom-p p-5" />
+      <div class="kaboom-p p-6" />
+      <div class="kaboom-p p-7" />
+      <div class="kaboom-p p-8" />
+      <div class="kaboom-p p-9" />
+      <div class="kaboom-p p-10" />
     </div>
 
     <!-- Session Limit Section -->
-    <section v-if="sessionsLimitReached" class="romicars-overlay-section">
+    <section v-if="sessionsLimitReached" class="kaboom-overlay-section">
       <SessionLimitOverlay
         :sessions="limitedSessions"
         @revoke="handleSessionRevoke"
@@ -289,7 +289,7 @@ export default {
     </section>
 
     <!-- MFA Verification Section -->
-    <section v-else-if="mfaRequired" class="romicars-overlay-section">
+    <section v-else-if="mfaRequired" class="kaboom-overlay-section">
       <MfaVerification
         :mfa-token="mfaToken"
         @verified="handleMfaVerified"
@@ -300,7 +300,7 @@ export default {
     <!-- Login Card -->
     <section
       v-else
-      class="romicars-card"
+      class="kaboom-card"
       :class="{ 'animate-wiggle': loginApi.hasErrored }"
     >
       <!-- Logo -->
@@ -313,21 +313,27 @@ export default {
       </div>
 
       <!-- Title & subtitle -->
-      <h1 class="romicars-title">
+      <h1 class="kaboom-title">
         {{ replaceInstallationName($t('LOGIN.TITLE')) }}
       </h1>
-      <p class="romicars-subtitle">Accede al panel de gestión</p>
+      <p class="kaboom-subtitle">{{ $t('LOGIN.SUBTITLE') }}</p>
 
       <!-- Form -->
       <div v-if="!email">
-        <div v-if="showGoogleOAuth || showSamlLogin" class="flex flex-col gap-4 mb-6">
+        <div
+          v-if="showGoogleOAuth || showSamlLogin"
+          class="flex flex-col gap-4 mb-6"
+        >
           <GoogleOAuthButton v-if="showGoogleOAuth" />
           <div v-if="showSamlLogin" class="text-center">
             <router-link
               to="/app/login/sso"
               class="inline-flex justify-center w-full px-4 py-3 items-center bg-slate-100 rounded-lg ring-1 ring-inset ring-slate-200 hover:bg-slate-50 transition-colors"
             >
-              <Icon icon="i-lucide-lock-keyhole" class="size-5 text-slate-500" />
+              <Icon
+                icon="i-lucide-lock-keyhole"
+                class="size-5 text-slate-500"
+              />
               <span class="ml-2 text-base font-medium text-slate-700">
                 {{ $t('LOGIN.SAML.LABEL') }}
               </span>
@@ -377,7 +383,7 @@ export default {
             :tabindex="3"
             :disabled="loginApi.showLoading"
             data-testid="submit_button"
-            class="romicars-submit-btn"
+            class="kaboom-submit-btn"
           >
             <Spinner
               v-if="loginApi.showLoading"
@@ -389,7 +395,10 @@ export default {
           </button>
         </form>
 
-        <p v-if="showSignupLink" class="mt-5 text-sm text-center text-slate-400">
+        <p
+          v-if="showSignupLink"
+          class="mt-5 text-sm text-center text-slate-400"
+        >
           {{ $t('COMMON.OR') }}
           <router-link
             to="auth/signup"
@@ -406,7 +415,7 @@ export default {
 
       <!-- Footer -->
       <p class="mt-8 text-xs text-center text-slate-400">
-        Plataforma de gestión de clientes © Romicars
+        {{ $t('LOGIN.FOOTER_NOTE') }}
       </p>
     </section>
   </main>
@@ -414,23 +423,23 @@ export default {
 
 <style>
 /* =============================================
-   ROMICARS LOGIN — Animated dark background
+   KABOOM LOGIN — Animated dark background
    ============================================= */
 
-.romicars-login-root {
+.kaboom-login-root {
   min-height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0c1220;
+  background: #0c1234;
   position: relative;
   overflow: hidden;
   padding: 2rem 1rem;
 }
 
 /* ---- Animated background layer ---- */
-.romicars-bg {
+.kaboom-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -438,7 +447,7 @@ export default {
 }
 
 /* ---- Orbs ---- */
-.romicars-orb {
+.kaboom-orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
@@ -450,7 +459,7 @@ export default {
   height: 72vw;
   background: radial-gradient(
     circle at 40% 40%,
-    rgba(99, 102, 241, 0.3) 0%,
+    rgba(52, 77, 221, 0.32) 0%,
     transparent 68%
   );
   top: -30%;
@@ -465,7 +474,7 @@ export default {
   height: 58vw;
   background: radial-gradient(
     circle at 55% 55%,
-    rgba(147, 51, 234, 0.25) 0%,
+    rgba(30, 154, 206, 0.24) 0%,
     transparent 68%
   );
   bottom: -24%;
@@ -473,7 +482,9 @@ export default {
   animation:
     orb-2-move 24s ease-in-out infinite alternate,
     orb-pulse 11s ease-in-out infinite alternate;
-  animation-delay: -6s, -4s;
+  animation-delay:
+    -6s,
+    -4s;
 }
 
 .orb-3 {
@@ -481,7 +492,7 @@ export default {
   height: 42vw;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(220, 38, 38, 0.18) 0%,
+    rgba(10, 229, 161, 0.16) 0%,
     transparent 68%
   );
   top: 18%;
@@ -489,7 +500,9 @@ export default {
   animation:
     orb-3-move 21s ease-in-out infinite alternate,
     orb-pulse 7s ease-in-out infinite alternate;
-  animation-delay: -10s, -2s;
+  animation-delay:
+    -10s,
+    -2s;
 }
 
 .orb-4 {
@@ -497,7 +510,7 @@ export default {
   height: 38vw;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(14, 165, 233, 0.13) 0%,
+    rgba(91, 109, 234, 0.14) 0%,
     transparent 68%
   );
   bottom: 8%;
@@ -507,31 +520,57 @@ export default {
 }
 
 @keyframes orb-1-move {
-  0%   { transform: translate(0, 0) scale(1); }
-  40%  { transform: translate(8vw, 10vh) scale(1.06); }
-  100% { transform: translate(5vw, 18vh) scale(0.94); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(8vw, 10vh) scale(1.06);
+  }
+  100% {
+    transform: translate(5vw, 18vh) scale(0.94);
+  }
 }
 @keyframes orb-2-move {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-12vw, -9vh) scale(1.08); }
-  100% { transform: translate(-7vw, -16vh) scale(0.92); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-12vw, -9vh) scale(1.08);
+  }
+  100% {
+    transform: translate(-7vw, -16vh) scale(0.92);
+  }
 }
 @keyframes orb-3-move {
-  0%   { transform: translate(0, 0) scale(1); }
-  35%  { transform: translate(-9vw, 9vh) scale(1.1); }
-  100% { transform: translate(9vw, -8vh) scale(0.9); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    transform: translate(-9vw, 9vh) scale(1.1);
+  }
+  100% {
+    transform: translate(9vw, -8vh) scale(0.9);
+  }
 }
 @keyframes orb-4-move {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(13vw, -11vh); }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(13vw, -11vh);
+  }
 }
 @keyframes orb-pulse {
-  0%   { opacity: 0.5; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* ---- Floating particles ---- */
-.romicars-p {
+.kaboom-p {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
@@ -539,26 +578,106 @@ export default {
   will-change: transform, opacity;
 }
 
-.p-1  { width: 3px;  height: 3px;  left: 9%;  top: 88%; animation-duration: 12s; animation-delay: 0s; }
-.p-2  { width: 2px;  height: 2px;  left: 20%; top: 91%; animation-duration: 16s; animation-delay: -3s; }
-.p-3  { width: 4px;  height: 4px;  left: 36%; top: 87%; animation-duration: 10s; animation-delay: -7s; }
-.p-4  { width: 2px;  height: 2px;  left: 50%; top: 94%; animation-duration: 14s; animation-delay: -1s; }
-.p-5  { width: 3px;  height: 3px;  left: 63%; top: 86%; animation-duration: 11s; animation-delay: -9s; }
-.p-6  { width: 5px;  height: 5px;  left: 78%; top: 80%; animation-duration: 18s; animation-delay: -5s; }
-.p-7  { width: 2px;  height: 2px;  left: 29%; top: 96%; animation-duration: 13s; animation-delay: -6s; }
-.p-8  { width: 3px;  height: 3px;  left: 71%; top: 83%; animation-duration: 9s;  animation-delay: -2s; }
-.p-9  { width: 2px;  height: 2px;  left: 44%; top: 89%; animation-duration: 15s; animation-delay: -11s; }
-.p-10 { width: 4px;  height: 4px;  left: 86%; top: 90%; animation-duration: 12s; animation-delay: -8s; }
+.p-1 {
+  width: 3px;
+  height: 3px;
+  left: 9%;
+  top: 88%;
+  animation-duration: 12s;
+  animation-delay: 0s;
+}
+.p-2 {
+  width: 2px;
+  height: 2px;
+  left: 20%;
+  top: 91%;
+  animation-duration: 16s;
+  animation-delay: -3s;
+}
+.p-3 {
+  width: 4px;
+  height: 4px;
+  left: 36%;
+  top: 87%;
+  animation-duration: 10s;
+  animation-delay: -7s;
+}
+.p-4 {
+  width: 2px;
+  height: 2px;
+  left: 50%;
+  top: 94%;
+  animation-duration: 14s;
+  animation-delay: -1s;
+}
+.p-5 {
+  width: 3px;
+  height: 3px;
+  left: 63%;
+  top: 86%;
+  animation-duration: 11s;
+  animation-delay: -9s;
+}
+.p-6 {
+  width: 5px;
+  height: 5px;
+  left: 78%;
+  top: 80%;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+.p-7 {
+  width: 2px;
+  height: 2px;
+  left: 29%;
+  top: 96%;
+  animation-duration: 13s;
+  animation-delay: -6s;
+}
+.p-8 {
+  width: 3px;
+  height: 3px;
+  left: 71%;
+  top: 83%;
+  animation-duration: 9s;
+  animation-delay: -2s;
+}
+.p-9 {
+  width: 2px;
+  height: 2px;
+  left: 44%;
+  top: 89%;
+  animation-duration: 15s;
+  animation-delay: -11s;
+}
+.p-10 {
+  width: 4px;
+  height: 4px;
+  left: 86%;
+  top: 90%;
+  animation-duration: 12s;
+  animation-delay: -8s;
+}
 
 @keyframes particle-float {
-  0%   { transform: translateY(0) translateX(0);     opacity: 0; }
-  6%   { opacity: 0.9; }
-  88%  { opacity: 0.3; }
-  100% { transform: translateY(-96vh) translateX(25px); opacity: 0; }
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.9;
+  }
+  88% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-96vh) translateX(25px);
+    opacity: 0;
+  }
 }
 
 /* ---- Overlay sections (MFA / session limit) ---- */
-.romicars-overlay-section {
+.kaboom-overlay-section {
   position: relative;
   z-index: 10;
   width: 100%;
@@ -568,7 +687,7 @@ export default {
 }
 
 /* ---- White card ---- */
-.romicars-card {
+.kaboom-card {
   position: relative;
   z-index: 10;
   background: #ffffff;
@@ -583,30 +702,30 @@ export default {
 }
 
 /* Force light appearance inside the white card */
-.romicars-card input[type='text'],
-.romicars-card input[type='email'],
-.romicars-card input[type='password'] {
+.kaboom-card input[type='text'],
+.kaboom-card input[type='email'],
+.kaboom-card input[type='password'] {
   background-color: #eef2f7 !important;
   color: #1e293b !important;
   border-color: #dde3ed !important;
 }
-.romicars-card input[type='text']:focus,
-.romicars-card input[type='email']:focus,
-.romicars-card input[type='password']:focus {
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+.kaboom-card input[type='text']:focus,
+.kaboom-card input[type='email']:focus,
+.kaboom-card input[type='password']:focus {
+  border-color: #5b6dea !important;
+  box-shadow: 0 0 0 3px rgba(52, 77, 221, 0.18) !important;
   outline: none !important;
 }
-.romicars-card label {
+.kaboom-card label {
   color: #374151 !important;
 }
-.romicars-card p,
-.romicars-card span {
+.kaboom-card p,
+.kaboom-card span {
   color: inherit;
 }
 
 /* ---- Card typography ---- */
-.romicars-title {
+.kaboom-title {
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;
@@ -614,7 +733,7 @@ export default {
   letter-spacing: -0.02em;
   margin-bottom: 0.25rem;
 }
-.romicars-subtitle {
+.kaboom-subtitle {
   font-size: 0.875rem;
   text-align: center;
   color: #94a3b8;
@@ -622,14 +741,14 @@ export default {
 }
 
 /* ---- Red submit button ---- */
-.romicars-submit-btn {
+.kaboom-submit-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
   padding: 0.8rem 1rem;
-  background: #dc2626;
+  background: #344ddd;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -642,22 +761,22 @@ export default {
     box-shadow 0.18s ease;
   letter-spacing: 0.02em;
 }
-.romicars-submit-btn:hover:not(:disabled) {
-  background: #b91c1c;
-  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.45);
+.kaboom-submit-btn:hover:not(:disabled) {
+  background: #2a3ebc;
+  box-shadow: 0 4px 16px rgba(52, 77, 221, 0.45);
 }
-.romicars-submit-btn:active:not(:disabled) {
+.kaboom-submit-btn:active:not(:disabled) {
   transform: scale(0.98);
 }
-.romicars-submit-btn:disabled {
+.kaboom-submit-btn:disabled {
   opacity: 0.65;
   cursor: not-allowed;
 }
 
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
-  .romicars-orb,
-  .romicars-p {
+  .kaboom-orb,
+  .kaboom-p {
     animation: none !important;
   }
 }

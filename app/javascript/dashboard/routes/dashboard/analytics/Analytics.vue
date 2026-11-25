@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useMapGetter } from 'dashboard/composables/store';
-import api from 'dashboard/api/romicarsAnalytics';
+import api from 'dashboard/api/kaboomAnalytics';
 import { useAlert } from 'dashboard/composables';
 import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
 import Button from 'dashboard/components-next/button/Button.vue';

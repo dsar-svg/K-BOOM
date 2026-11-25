@@ -12,6 +12,6 @@ json.payload @models do |model|
   json.updated_at model.updated_at
 end
 
-json.meta {
+json.meta do
   json.count @models.size
-}
+end

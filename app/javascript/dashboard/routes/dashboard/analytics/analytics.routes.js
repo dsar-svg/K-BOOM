@@ -7,7 +7,7 @@ export default {
   routes: [
     {
       path: frontendURL('accounts/:accountId/analytics'),
-      name: 'romicars_analytics',
+      name: 'kaboom_analytics',
       meta: {
         permissions: DASHBOARD_PERMISSIONS,
       },

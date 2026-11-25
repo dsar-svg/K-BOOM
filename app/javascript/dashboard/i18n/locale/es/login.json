@@ -1,5 +1,7 @@
 {
   "LOGIN": {
+    "SUBTITLE": "Accede al panel de gestión",
+    "FOOTER_NOTE": "Plataforma de gestión de clientes © Kaboom Travel",
     "TITLE": "Iniciar sesión en Chatwoot",
     "EMAIL": {
       "LABEL": "E-mail",

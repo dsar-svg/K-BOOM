@@ -366,8 +366,8 @@ const menuItems = computed(() => {
       name: 'Analytics',
       label: t('SIDEBAR.ANALYTICS'),
       icon: 'i-lucide-layout-dashboard',
-      to: accountScopedRoute('romicars_analytics'),
-      activeOn: ['romicars_analytics'],
+      to: accountScopedRoute('kaboom_analytics'),
+      activeOn: ['kaboom_analytics'],
     },
     {
       name: 'Inbox',
@@ -693,13 +693,13 @@ const menuItems = computed(() => {
           to: accountScopedRoute('conversation_reports'),
         },
         ...reportRoutes.value,
-        // Encuestas de Satisfacción - oculto para RomiCars
+        // Encuestas de Satisfacción - oculto para Kaboom Travel
         // {
         //   name: 'Reports CSAT',
         //   label: t('SIDEBAR.CSAT'),
         //   to: accountScopedRoute('csat_reports'),
         // },
-        // SLA - oculto para RomiCars
+        // SLA - oculto para Kaboom Travel
         // {
         //   name: 'Reports SLA',
         //   label: t('SIDEBAR.REPORTS_SLA'),
@@ -880,7 +880,7 @@ const menuItems = computed(() => {
           icon: 'i-lucide-shield-plus',
           to: accountScopedRoute('custom_roles_list'),
         },
-        // SLA - oculto para RomiCars
+        // SLA - oculto para Kaboom Travel
         // {
         //   name: 'Settings Sla',
         //   label: t('SIDEBAR.SLA'),
@@ -917,7 +917,7 @@ const menuItems = computed(() => {
         ],
       },
     ]"
-    class="bg-n-background dark:bg-[#0E1030] flex flex-col text-sm pb-px fixed top-0 ltr:left-0 rtl:right-0 h-full z-40 w-[200px] md:w-auto md:relative md:flex-shrink-0 md:ltr:translate-x-0 md:rtl:translate-x-0 ltr:border-r rtl:border-l border-n-weak"
+    class="bg-n-background dark:bg-[#0C1234] flex flex-col text-sm pb-px fixed top-0 ltr:left-0 rtl:right-0 h-full z-40 w-[200px] md:w-auto md:relative md:flex-shrink-0 md:ltr:translate-x-0 md:rtl:translate-x-0 ltr:border-r rtl:border-l border-n-weak"
     :class="[
       {
         'shadow-lg md:shadow-none': isMobileSidebarOpen,
@@ -1025,7 +1025,7 @@ const menuItems = computed(() => {
       class="flex relative flex-col flex-shrink-0 gap-1 justify-between items-center"
     >
       <div
-        class="pointer-events-none absolute inset-x-0 -top-[1.938rem] h-8 bg-gradient-to-t from-n-background dark:from-[#0E1030] to-transparent"
+        class="pointer-events-none absolute inset-x-0 -top-[1.938rem] h-8 bg-gradient-to-t from-n-background dark:from-[#0C1234] to-transparent"
       />
       <SidebarChangelogCard
         v-if="

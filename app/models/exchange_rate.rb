@@ -17,7 +17,7 @@ class ExchangeRate < ApplicationRecord
   FALLBACK_API_URL = 'https://ve.dolarapi.com/v1/dolares'
   # What the shop adds on top of the BCV rate when the customer pays in bolivars. Each account
   # sets its own (Account#price_markup_percent); this is what it was before it could be set.
-  DEFAULT_MARKUP_PERCENT = BigDecimal('13')
+  DEFAULT_MARKUP_PERCENT = BigDecimal(13)
   # A new rate further than this from the last one is a broken page, not a devaluation: the
   # whole catalogue is repriced from it and the bot quotes the result.
   MAX_JUMP = BigDecimal('0.25')
@@ -54,9 +54,9 @@ class ExchangeRate < ApplicationRecord
     return 0 unless equiv.positive? && tasa_bcv.positive?
 
     account.vehicle_prices.where.not(divisa: nil).update_all([
-      'monto_bs = ROUND(divisa * ?, 2), bolivares = ROUND(ROUND(divisa * ?, 2) / ?), updated_at = ?',
-      equiv, equiv, tasa_bcv, Time.current
-    ])
+                                                               'monto_bs = ROUND(divisa * ?, 2), bolivares = ROUND(ROUND(divisa * ?, 2) / ?), updated_at = ?',
+                                                               equiv, equiv, tasa_bcv, Time.current
+                                                             ])
   end
 
   # Stores the fetched rate under its own date, with this account's markup, and reprices.
@@ -115,7 +115,7 @@ class ExchangeRate < ApplicationRecord
                                         open_timeout: OPEN_TIMEOUT, read_timeout: READ_TIMEOUT) do |http|
       request = Net::HTTP::Get.new(uri)
       # The BCV site answers 403 to clients without a browser-like agent.
-      request['User-Agent'] = 'Mozilla/5.0 (compatible; RomiCars/1.0)'
+      request['User-Agent'] = 'Mozilla/5.0 (compatible; Kaboom Travel/1.0)'
       response = http.request(request)
       raise "unexpected response #{response.code}" unless response.is_a?(Net::HTTPSuccess)
 

@@ -44,7 +44,7 @@ class Campaigns::AudienceResolver
   end
 
   def audience
-    @audience ||= Array(campaign.audience).map { |selector| selector.with_indifferent_access }
+    @audience ||= Array(campaign.audience).map(&:with_indifferent_access)
   end
 
   def ids_for(type)

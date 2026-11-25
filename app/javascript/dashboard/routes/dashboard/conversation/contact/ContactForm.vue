@@ -11,13 +11,11 @@ import { isPhoneNumberValid } from 'shared/helpers/Validators';
 import parsePhoneNumber from 'libphonenumber-js';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import Avatar from 'next/avatar/Avatar.vue';
-import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 
 export default {
   components: {
     NextButton,
     Avatar,
-    ComboBox,
   },
   props: {
     contact: {
@@ -172,7 +170,8 @@ export default {
           additionalAttributes.country ||
           this.$t('CONTACT_FORM.FORM.COUNTRY.SELECT_COUNTRY'),
       };
-      this.location = additionalAttributes.location || additionalAttributes.city || '';
+      this.location =
+        additionalAttributes.location || additionalAttributes.city || '';
       this.city = additionalAttributes.city || '';
       this.description = additionalAttributes.description || '';
       this.avatarUrl = this.contact.thumbnail || '';
@@ -379,13 +378,11 @@ export default {
       :placeholder="$t('CONTACT_FORM.FORM.COMPANY_NAME.PLACEHOLDER')"
     />
     <div class="w-full mb-4">
-      <label>
-        Ubicación
-      </label>
+      <label>{{ $t('CONTACT_FORM.FORM.LOCATION.LABEL') }}</label>
       <input
         v-model="location"
         type="text"
-        placeholder="Ej: Valencia, Carabobo"
+        :placeholder="$t('CONTACT_FORM.FORM.LOCATION.PLACEHOLDER_EXAMPLE')"
         class="w-full rounded-md border border-n-weak bg-n-solid-1 px-3 py-2 text-sm text-n-slate-12 placeholder:text-n-slate-8 focus:outline-n-brand focus:ring-1 focus:ring-n-brand"
       />
     </div>

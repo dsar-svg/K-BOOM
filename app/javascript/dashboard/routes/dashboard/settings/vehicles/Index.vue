@@ -112,7 +112,7 @@ const tableHeaders = computed(() => [
     <template #header>
       <BaseSettingsHeader
         title="Marcas y Modelos"
-        description="Gestiona las marcas y modelos de vehículos que maneja RomiCars"
+        description="Gestiona las marcas y modelos de vehículos que maneja Kaboom Travel"
       >
         <template v-if="records?.length" #count>
           <span class="text-body-main text-n-slate-11">

@@ -1,6 +1,8 @@
 {
   "LOGIN": {
-    "TITLE": "Login to RomiCars",
+    "SUBTITLE": "Access the management panel",
+    "FOOTER_NOTE": "Customer management platform © Kaboom Travel",
+    "TITLE": "Login to Kaboom Travel",
     "EMAIL": {
       "LABEL": "Email",
       "PLACEHOLDER": "example{'@'}companyname.com",

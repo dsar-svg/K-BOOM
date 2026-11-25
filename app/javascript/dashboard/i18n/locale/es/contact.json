@@ -113,6 +113,7 @@
         "DUPLICATE": "Este número de teléfono está en uso para otro contacto."
       },
       "LOCATION": {
+        "PLACEHOLDER_EXAMPLE": "Ej: Valencia, Carabobo",
         "PLACEHOLDER": "Escriba la ubicación del contacto",
         "LABEL": "Ubicación"
       },
@@ -452,6 +453,9 @@
         "UPDATE_BUTTON": "Actualizar contacto",
         "SUCCESS_MESSAGE": "Contacto actualizado correctamente",
         "ERROR_MESSAGE": "No se pudo actualizar el contacto. Inténtalo de nuevo más tarde."
+      },
+      "VEHICLE": {
+        "TITLE": "Vehículo"
       },
       "SOCIAL_MEDIA": {
         "TITLE": "Editar enlaces de redes sociales",

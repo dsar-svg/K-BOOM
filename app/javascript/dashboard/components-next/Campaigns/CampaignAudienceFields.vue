@@ -43,7 +43,8 @@ const toOptions = items =>
   items.map(({ id, name }) => ({ value: id, label: name }));
 
 const labelOptions = computed(
-  () => labels.value?.map(({ id, title }) => ({ value: id, label: title })) ?? []
+  () =>
+    labels.value?.map(({ id, title }) => ({ value: id, label: title })) ?? []
 );
 
 const brandOptions = computed(() => toOptions(activeOnly(brands.value)));

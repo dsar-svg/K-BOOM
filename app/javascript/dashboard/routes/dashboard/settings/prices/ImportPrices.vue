@@ -33,7 +33,7 @@ export default {
         const { data } = await VehiclePriceAPI.export();
         const link = document.createElement('a');
         link.href = URL.createObjectURL(data);
-        link.download = `precios-romicars-${new Date().toISOString().slice(0, 10)}.xlsx`;
+        link.download = `precios-kaboom-${new Date().toISOString().slice(0, 10)}.xlsx`;
         link.click();
         URL.revokeObjectURL(link.href);
       } catch (error) {

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import api from 'dashboard/api/romicarsAnalytics';
+import api from 'dashboard/api/kaboomAnalytics';
 import { frontendURL, conversationUrl } from 'dashboard/helper/URLHelper.js';
 import { groupByState } from 'dashboard/helper/venezuelaCities';
 import Button from 'dashboard/components-next/button/Button.vue';

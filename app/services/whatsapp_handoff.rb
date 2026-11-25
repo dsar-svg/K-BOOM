@@ -16,7 +16,7 @@ module WhatsappHandoff
   CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'.chars.freeze
   CODE_PATTERN = /\bRC-([#{CODE_ALPHABET.join}]{5})\b/i
 
-  TURN_KEY = 'romicars:wa_handoff_turn:%<account_id>s'
+  TURN_KEY = 'kaboom:wa_handoff_turn:%<account_id>s'
 
   class NoWhatsappInbox < StandardError; end
   class InvalidPhone < StandardError; end
@@ -106,7 +106,7 @@ module WhatsappHandoff
 
   def prefilled_text(code, repuesto, vehiculo)
     pedido = [repuesto.to_s.squish.presence, vehiculo.to_s.squish.presence&.then { |v| "para mi #{v}" }].compact.join(' ')
-    "Hola Romicars, quiero comprar #{pedido.presence || 'un repuesto'}. Código #{code}"
+    "Hola Kaboom Travel, quiero comprar #{pedido.presence || 'un repuesto'}. Código #{code}"
   end
 
   # The contact that has the WhatsApp number survives: on arrival the bot is already

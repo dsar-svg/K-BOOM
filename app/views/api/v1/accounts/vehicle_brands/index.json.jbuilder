@@ -10,6 +10,6 @@ json.payload @brands do |brand|
   json.updated_at brand.updated_at
 end
 
-json.meta {
+json.meta do
   json.count @brands.size
-}
+end

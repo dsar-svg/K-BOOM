@@ -24,8 +24,8 @@ const fetchData = async () => {
   loading.value = true;
   try {
     const [resolutionResponse, requestedResponse] = await Promise.all([
-      store.dispatch('romicarsAnalytics/fetchResolution'),
-      store.dispatch('romicarsAnalytics/fetchRequestedProducts'),
+      store.dispatch('kaboomAnalytics/fetchResolution'),
+      store.dispatch('kaboomAnalytics/fetchRequestedProducts'),
     ]);
     resolutionData.value = resolutionResponse;
     requestedProductsData.value = requestedResponse;

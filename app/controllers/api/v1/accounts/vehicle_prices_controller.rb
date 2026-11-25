@@ -43,7 +43,7 @@ class Api::V1::Accounts::VehiclePricesController < Api::V1::Accounts::BaseContro
   # The import template: the current list in the layout the import reads.
   def export
     send_data VehiclePriceExportService.new(Current.account).call,
-              filename: "precios-romicars-#{Time.zone.today}.xlsx",
+              filename: "precios-kaboom-#{Time.zone.today}.xlsx",
               type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   end
 

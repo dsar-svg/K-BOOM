@@ -39,10 +39,10 @@ end
 # Required for the inline <script> blocks that bootstrap window.chatwootConfig /
 # window.portalConfig (see app/views/layouts/vueapp.html.erb and the portal layouts) -
 # without a nonce_generator, script-src :self blocks those and the app never boots.
-Rails.application.config.content_security_policy_nonce_generator = ->(request) { SecureRandom.base64(16) }
+Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
 
 # Set the nonce only to specific directives
-Rails.application.config.content_security_policy_nonce_directives = %w(script-src)
+Rails.application.config.content_security_policy_nonce_directives = %w[script-src]
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:

@@ -97,7 +97,7 @@ class Conversation < ApplicationRecord
   # Reasons only apply to `perdido` closures.
   RESOLUTION_REASONS = %w[sin_stock precio sin_respuesta otro].freeze
   # `requested_product` is only captured for this reason.
-  RESOLUTION_REASON_REQUIRING_PRODUCT = 'sin_stock'
+  RESOLUTION_REASON_REQUIRING_PRODUCT = 'sin_stock'.freeze
 
   # Validated only on change so legacy rows with unexpected values keep saving.
   validates :resolution_type, inclusion: { in: RESOLUTION_TYPES }, allow_nil: true, if: :resolution_type_changed?
@@ -105,7 +105,7 @@ class Conversation < ApplicationRecord
 
   scope :by_resolution_type, ->(type) { where(resolution_type: type) if type.present? }
   scope :by_resolution_reason, ->(reason) { where(resolution_reason: reason) if reason.present? }
-  scope :resolved_between, ->(start_date, end_date) {
+  scope :resolved_between, lambda { |start_date, end_date|
     where(resolved_at: start_date..end_date) if start_date.present? && end_date.present?
   }
   scope :with_sale, -> { where.not(sale_amount: nil) }
@@ -113,7 +113,7 @@ class Conversation < ApplicationRecord
   # Numbers the shop talks to that are not customers: suppliers, the delivery rider and the
   # shop's own lines (`interno`, e.g. its second WhatsApp number). On a conversation the label
   # covers that thread; on the contact it covers every conversation with that number, past
-  # and future. Those skip the bot, the follow-ups and every figure on the RomiCars dashboard.
+  # and future. Those skip the bot, the follow-ups and every figure on the Kaboom Travel dashboard.
   NON_LEAD_LABELS = %w[proveedor logistica interno].freeze
   # Being a supplier is who the number is, so tagging one conversation tags the contact too.
   # `logistica` stays on the conversation: a customer's own thread can be about a delivery.
@@ -257,7 +257,8 @@ class Conversation < ApplicationRecord
     save
   end
 
-  def resolve_with_outcome(resolution_type:, resolution_reason: nil, resolution_notes: nil, sale_amount: nil, sale_date: nil, sale_invoice: nil, requested_product: nil)
+  def resolve_with_outcome(resolution_type:, resolution_reason: nil, resolution_notes: nil, sale_amount: nil, sale_date: nil, sale_invoice: nil,
+                           requested_product: nil)
     # Blank strings from the API would otherwise fail the inclusion validation, which
     # only allows nil.
     resolution_type = resolution_type.presence
@@ -386,7 +387,7 @@ class Conversation < ApplicationRecord
   end
 
   def clear_ai_insights_cache
-    RomicarsInsightsCache.clear(account_id)
+    KaboomInsightsCache.clear(account_id)
   end
 
   def execute_after_update_commit_callbacks
@@ -432,7 +433,7 @@ class Conversation < ApplicationRecord
 
   # Stamps resolved_at on *every* transition into `resolved`, not just the ones that go
   # through the resolution modal. Without this, conversations closed by automations, the
-  # bot, macros or the plain toggle stay invisible to the RomiCars dashboard metrics.
+  # bot, macros or the plain toggle stay invisible to the Kaboom Travel dashboard metrics.
   def set_resolved_at
     return unless status_changed?
     return unless resolved?
