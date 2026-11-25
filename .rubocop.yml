@@ -1,3 +1,11 @@
+inherit_from: .rubocop_todo.yml
+
+# Without this, an Exclude list in this file replaces the one the todo sets for the same
+# cop instead of adding to it, and the todo's entries are silently dropped.
+inherit_mode:
+  merge:
+    - Exclude
+
 plugins:
   - rubocop-performance
   - rubocop-rails
