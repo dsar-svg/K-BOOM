@@ -113,7 +113,7 @@ class Conversation < ApplicationRecord
   # Numbers the shop talks to that are not customers: suppliers, the delivery rider and the
   # shop's own lines (`interno`, e.g. its second WhatsApp number). On a conversation the label
   # covers that thread; on the contact it covers every conversation with that number, past
-  # and future. Those skip the bot, the follow-ups and every figure on the RomiCars dashboard.
+  # and future. Those skip the bot, the follow-ups and every figure on the Kaboom Travel dashboard.
   NON_LEAD_LABELS = %w[proveedor logistica interno].freeze
   # Being a supplier is who the number is, so tagging one conversation tags the contact too.
   # `logistica` stays on the conversation: a customer's own thread can be about a delivery.
@@ -386,7 +386,7 @@ class Conversation < ApplicationRecord
   end
 
   def clear_ai_insights_cache
-    RomicarsInsightsCache.clear(account_id)
+    KaboomInsightsCache.clear(account_id)
   end
 
   def execute_after_update_commit_callbacks
@@ -432,7 +432,7 @@ class Conversation < ApplicationRecord
 
   # Stamps resolved_at on *every* transition into `resolved`, not just the ones that go
   # through the resolution modal. Without this, conversations closed by automations, the
-  # bot, macros or the plain toggle stay invisible to the RomiCars dashboard metrics.
+  # bot, macros or the plain toggle stay invisible to the Kaboom Travel dashboard metrics.
   def set_resolved_at
     return unless status_changed?
     return unless resolved?

@@ -128,7 +128,7 @@ describe('#getters', () => {
       ]);
     });
   });
-  describe('RomiCars tabs', () => {
+  describe('Kaboom Travel tabs', () => {
     const conversationList = [
       {
         id: 1,

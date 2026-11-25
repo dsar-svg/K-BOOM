@@ -49,7 +49,7 @@ class ConversationFollowupsJob < ApplicationJob
   ASSISTED_LABEL = 'seguimiento-pendiente'
 
   # The approved WhatsApp template that carries the nudge once the 24 hours have passed:
-  # "Hola {{1}}, te escribimos de Romicars por el {{2}} que consultaste. ¿Seguimos con tu
+  # "Hola {{1}}, te escribimos de Kaboom Travel por el {{2}} que consultaste. ¿Seguimos con tu
   # pedido?". Utility, so it can only speak about something the customer asked for.
   TEMPLATE_NAME = 'seguimiento_pedido'
   TEMPLATE_LANGUAGE = 'es'
@@ -224,7 +224,7 @@ class ConversationFollowupsJob < ApplicationJob
   # `content` is only what the seller reads in the thread; WhatsApp sends the template with
   # the two values. Returns that text so the follow-up row records what the customer got.
   def send_template(conversation, values)
-    body = "Hola #{values['1']}, te escribimos de Romicars por el #{values['2']} que consultaste. ¿Seguimos con tu pedido?"
+    body = "Hola #{values['1']}, te escribimos de Kaboom Travel por el #{values['2']} que consultaste. ¿Seguimos con tu pedido?"
     conversation.messages.create!(
       account_id: conversation.account_id,
       inbox_id: conversation.inbox_id,

@@ -1,5 +1,5 @@
 import * as types from '../mutation-types';
-import RomicarsDashboardAPI from '../../api/romicarsAnalytics';
+import KaboomDashboardAPI from '../../api/kaboomAnalytics';
 
 const state = {
   resolution: null,
@@ -14,8 +14,8 @@ const getters = {
 const actions = {
   fetchResolution: async function fetchResolution({ commit }) {
     try {
-      const response = await RomicarsDashboardAPI.getResolution();
-      commit(types.default.SET_ROMICARS_RESOLUTION, response.data);
+      const response = await KaboomDashboardAPI.getResolution();
+      commit(types.default.SET_KABOOM_RESOLUTION, response.data);
       return response.data;
     } catch (error) {
       return null;
@@ -23,8 +23,8 @@ const actions = {
   },
   fetchRequestedProducts: async function fetchRequestedProducts({ commit }) {
     try {
-      const response = await RomicarsDashboardAPI.getRequestedProducts();
-      commit(types.default.SET_ROMICARS_REQUESTED_PRODUCTS, response.data);
+      const response = await KaboomDashboardAPI.getRequestedProducts();
+      commit(types.default.SET_KABOOM_REQUESTED_PRODUCTS, response.data);
       return response.data;
     } catch (error) {
       return null;
@@ -33,10 +33,10 @@ const actions = {
 };
 
 const mutations = {
-  [types.default.SET_ROMICARS_RESOLUTION](_state, data) {
+  [types.default.SET_KABOOM_RESOLUTION](_state, data) {
     _state.resolution = data;
   },
-  [types.default.SET_ROMICARS_REQUESTED_PRODUCTS](_state, data) {
+  [types.default.SET_KABOOM_REQUESTED_PRODUCTS](_state, data) {
     _state.requestedProducts = data;
   },
 };

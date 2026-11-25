@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'RomiCars Analytics leads', type: :request do
+RSpec.describe 'Kaboom Travel Analytics leads', type: :request do
   let(:account) { create(:account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:customer) { create(:contact, account: account) }
@@ -15,7 +15,7 @@ RSpec.describe 'RomiCars Analytics leads', type: :request do
   end
 
   def get_json(path)
-    get "/api/v2/accounts/#{account.id}/romicars_analytics/#{path}", headers: admin.create_new_auth_token, as: :json
+    get "/api/v2/accounts/#{account.id}/kaboom_analytics/#{path}", headers: admin.create_new_auth_token, as: :json
     response.parsed_body
   end
 
@@ -46,7 +46,7 @@ RSpec.describe 'RomiCars Analytics leads', type: :request do
 
   it 'drops the cached AI answers when a conversation closes with an outcome' do
     conversation = lead(contact: customer)
-    keys = [RomicarsInsightsCache.ai_insights_key(account.id), RomicarsInsightsCache.win_loss_key(account.id)]
+    keys = [KaboomInsightsCache.ai_insights_key(account.id), KaboomInsightsCache.win_loss_key(account.id)]
     keys.each { |key| Redis::Alfred.setex(key, '{}', 1.hour) }
 
     conversation.update!(priority: :high)

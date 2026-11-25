@@ -15,9 +15,9 @@ entregó en Word).
 | Instagram | operativo desde el 23/09 | Meta → n8n → `/webhooks/instagram` |
 | WhatsApp | operativo desde el 23/09 | Meta → n8n → `/webhooks/whatsapp/+584244205394` |
 
-- WABA `Romicars`, id `112013338473590`, número `+58 424-4205394`, en **coexistence**
+- WABA `Kaboom Travel`, id `112013338473590`, número `+58 424-4205394`, en **coexistence**
   (la app WhatsApp Business del teléfono sigue funcionando).
-- Inbox de Chatwoot: `WABA RomiCars` (id 4). Canal creado a mano con un token de usuario
+- Inbox de Chatwoot: `WABA Kaboom Travel` (id 4). Canal creado a mano con un token de usuario
   del sistema **sin caducidad**, no por Embedded Signup — el único template de registro
   insertado que ofrecía Meta era el de 60 días, que obliga a reautorizar cada dos meses.
 - El registro del webhook lo hace Chatwoot solo (`after_commit :setup_webhooks`), no hay
@@ -274,7 +274,7 @@ bot no pudo resolver, y lo manda por Telegram (credencial `Api Telegram Dario`, 
 
 ### Configuración de Chatwoot (hecha el 30/09)
 
-- **Asignación**: política `Reparto RomiCars` (id 1, round robin, `longest_waiting`, 100 por
+- **Asignación**: política `Reparto Kaboom Travel` (id 1, round robin, `longest_waiting`, 100 por
   hora, excluye inactivas > 168 h) en las cuatro bandejas. `assignment_v2` asigna solo a
   miembros **conectados**; sin política no había reintento y por eso se acumulaban las sin
   asignar. **Romi Cars** (inbox 2) tenía la auto-asignación apagada: ahora encendida.
@@ -282,8 +282,8 @@ bot no pudo resolver, y lo manda por Telegram (credencial `Api Telegram Dario`, 
   completo). Quedó abierta la #556 (un vendedor escribió y el cliente no contestó).
 - **Etiquetas**: 18 proveedores de la lista de la clienta (6 existían, 12 creados como
   contactos #788–#799), 10 tiendas marcadas por nombre (por confirmar), `logistica` en
-  "delivery Romicars" (#81), `interno` en "Romicars Ventas Digitales" (#42).
-- Excel entregado para la reunión: `Contactos_por_confirmar_RomiCars.xlsx` (14 por confirmar, 19
+  "delivery Kaboom Travel" (#81), `interno` en "Kaboom Travel Ventas Digitales" (#42).
+- Excel entregado para la reunión: `Contactos_por_confirmar_Kaboom Travel.xlsx` (14 por confirmar, 19
   confirmados).
 - Contacto de prueba #27 restaurado ("Dario Medina", `proveedor`).
 
@@ -307,7 +307,7 @@ bot no pudo resolver, y lo manda por Telegram (credencial `Api Telegram Dario`, 
 ### Probado el 02/10 sobre la imagen desplegada
 
 - Messenger con el contacto #27 (#901–#902): agotado → sin precio y ofrece vendedor; acepta →
-  nota y asignación por `Reparto RomiCars`; disponible → "sí lo tenemos, 6$ a tasa BCV o 5$ en
+  nota y asignación por `Reparto Kaboom Travel`; disponible → "sí lo tenemos, 6$ a tasa BCV o 5$ en
   divisas"; compra → link de WhatsApp con `RC-`. Ejecuciones de n8n sin error (~20 s por
   respuesta). Datos de prueba restaurados (#337 disponible, #27 con `proveedor`).
 - Exportación (.xlsx válido, 78 KB) y marcado masivo por API.
@@ -327,7 +327,7 @@ siguen **sin bot para los clientes reales**.
 |---|---|
 | #90 | Etiqueta `prueba-bot` en el contacto: su conversación nueva va al bot de la bandeja o, si no tiene, al que ya corre en otra |
 | #91 | **Traspaso tras posponer**: una conversación que el bot pospuso volvía como `open` con el bot asignado, y `asignar_agente` (que solo contaba desde `pending`) no asignaba a nadie ni saltaba la alerta de Telegram. Ahora: si el cliente escribe vuelve a `pending`; si vence la fecha pasa a los vendedores (`bot_handoff!`); y el toggle a `open` del bot suelta una conversación abierta que todavía tenga. **`prueba-bot` fuera del dashboard** (`Conversation.without_bot_testers`, solo cifras: el bot y el seguimiento los siguen tratando como clientes) |
-| #92 | **Insights IA al día**: un cierre con resultado (o uno corregido) borra la caché de `ai_insights` y `win_loss` (`RomicarsInsightsCache`); sin cierres sigue valiendo 3 h. Botón **Actualizar análisis** en la pestaña |
+| #92 | **Insights IA al día**: un cierre con resultado (o uno corregido) borra la caché de `ai_insights` y `win_loss` (`KaboomInsightsCache`); sin cierres sigue valiendo 3 h. Botón **Actualizar análisis** en la pestaña |
 
 ### Probado en vivo (conversaciones #935–#946)
 
@@ -380,7 +380,7 @@ siguen **sin bot para los clientes reales**.
 - "perdón, es para un chery arauca" → guardó CHERY ARAUCA y recotizó.
 - "no gracias, está muy caro" → cerrada `perdido` / `precio`, textual "esta muy caro", sin preguntar.
 - Horario con la FAQ cargada hoy → "hasta las 5:00 PM".
-- Delivery a Maracay (sin FAQ) → nota y asignación por `Reparto RomiCars`.
+- Delivery a Maracay (sin FAQ) → nota y asignación por `Reparto Kaboom Travel`.
 - "la bomba de agua chery para el arauca" listó las dos: "Chery" es también la marca del carro, ambiguo de verdad.
 - El contacto #27 ya no existe: se unió al #23 en las pruebas del 04/10.
 
@@ -390,7 +390,7 @@ siguen **sin bot para los clientes reales**.
 
 | PR | Qué |
 |---|---|
-| #94 | **Clave de caché que vence**: el panel guarda bandejas, etiquetas y equipos en IndexedDB y solo los vuelve a pedir si cambia la clave de la cuenta. La clave vive 72 h en Redis y, vencida, la API devolvía un `0000000000` fijo: un navegador con su lista guardada bajo ese mismo valor nunca refrescaba (el panel mostraba solo "Erdu" con cuatro bandejas creadas, y Campañas no ofrecía WABA RomiCars). Ahora una clave vencida se vuelve a generar al leerla |
+| #94 | **Clave de caché que vence**: el panel guarda bandejas, etiquetas y equipos en IndexedDB y solo los vuelve a pedir si cambia la clave de la cuenta. La clave vive 72 h en Redis y, vencida, la API devolvía un `0000000000` fijo: un navegador con su lista guardada bajo ese mismo valor nunca refrescaba (el panel mostraba solo "Erdu" con cuatro bandejas creadas, y Campañas no ofrecía WABA Kaboom Travel). Ahora una clave vencida se vuelve a generar al leerla |
 | #97 | **Porcentaje sobre la tasa BCV editable** (`account.settings['price_markup_percent']`, 13 por defecto) desde **Ajustes → Precios → Cambiar porcentaje**, solo administradores. Al guardar rehace el equivalente de la última tasa y todo el catálogo (`PATCH exchange_rates/markup`). **La tasa se lee de bcv.org.ve** y se guarda con su "Fecha Valor"; `ve.dolarapi.com` queda de respaldo. Una tasa a más de 25 % de la última se descarta. El job pasó de cada 6 h a cada hora. La columna sigue llamándose `equiv_13` |
 | #98 | bcv.org.ve manda un certificado intermedio que no corresponde y desde el servidor toda lectura fallaba la verificación. El intermedio correcto (Sectigo DV R36, hasta 2036) va en `config/certs` y se suma a las raíces del sistema solo para esa consulta. Si el BCV cambia de CA vuelve a fallar y responde el respaldo: la pantalla lo dice ("fuente: respaldo") |
 
@@ -403,10 +403,10 @@ que el job de cada hora la traiga solo.
 
 ### Plantilla `seguimiento_pedido` en Meta
 
-- **Importaciones Romicars** (WABA `112013338473590`, el número principal): creada el 04/10 y
+- **Importaciones Kaboom Travel** (WABA `112013338473590`, el número principal): creada el 04/10 y
   aprobada como **Utility**, en español, con el texto de la guía. Sincronizada en la bandeja
-  WABA RomiCars; aparece en el editor y en Campañas.
-- **Romicars Ventas Digitales** (WABA `529004876962549`): Meta responde "no tiene permiso para
+  WABA Kaboom Travel; aparece en el editor y en Campañas.
+- **Kaboom Travel Ventas Digitales** (WABA `529004876962549`): Meta responde "no tiene permiso para
   crear ni actualizar plantillas". Va con lo que ya faltaba de esa línea: número sin conectar y
   portafolio sin verificar. Al enviarla Meta también avisó que la categoría debería ser
   Marketing; en la principal pasó como Utility sin ese aviso.
@@ -445,16 +445,16 @@ que el job de cada hora la traiga solo.
 
 ### Configuración hecha el 06/10
 
-- **Bot conectado a las cuatro bandejas**: Romi Cars (2), somosromicars (3), WABA RomiCars (4) y
+- **Bot conectado a las cuatro bandejas**: Romi Cars (2), somoskaboom (3), WABA Kaboom Travel (4) y
   WABA Romi 2 (5, `+58 412-9876030`, la segunda línea, ya conectada). La bandeja Erdu ya no existe.
 - **Horario comercial** en las cuatro: lunes a viernes 8:00–17:00, sábados 8:00–13:00, domingo
   cerrado, `America/Caracas`. Texto: "En este momento estamos fuera de horario. Tu solicitud
   quedó registrada y un vendedor te atenderá apenas abramos." Se edita por bandeja en
   **Ajustes → Entradas → Horario comercial**. Ese mismo horario gobierna el seguimiento.
-- **Reparto**: `assign_offline_agents: true`. Política `Reparto RomiCars` también en WABA Romi 2
+- **Reparto**: `assign_offline_agents: true`. Política `Reparto Kaboom Travel` también en WABA Romi 2
   (sin política el tope por defecto es 5 asignaciones por vendedor cada 5 minutos, y la sexta
   se quedaba sin asignar).
-- **Miembros**: WABA RomiCars → Ventas 1; WABA Romi 2 → ventas 2. **Instagram y Facebook sin
+- **Miembros**: WABA Kaboom Travel → Ventas 1; WABA Romi 2 → ventas 2. **Instagram y Facebook sin
   miembros**: ahí los traspasos quedan sin asignar.
 - **Porcentaje sobre la tasa BCV: 15 %** (lo subió el dueño desde Ajustes → Precios).
 - Agentes: Dario y Moises (administradores), Susel, Ventas 1 y ventas 2.
@@ -503,7 +503,7 @@ que el job de cada hora la traiga solo.
 ### Hecho en producción el 07/10
 
 - El dueño **desconectó el bot de las dos bandejas de WhatsApp** (4 y 5). Hoy el bot está solo en
-  Romi Cars (2, Facebook) y somosromicars (3, Instagram). Las 16 conversaciones de WhatsApp que
+  Romi Cars (2, Facebook) y somoskaboom (3, Instagram). Las 16 conversaciones de WhatsApp que
   el bot todavía tenía se asignaron a mano a Ventas 1 / ventas 2 y se abrieron.
 - Contacto #164 (la línea principal de la tienda, +584244205394) con etiqueta `interno`.
 - `followups_enabled: true` (el seguimiento está **encendido**).
@@ -511,7 +511,7 @@ que el job de cada hora la traiga solo.
 ### n8n `Bot Atencion Cliente` (versión activa `34489583`, anterior `82245667`)
 
 - **Sin emojis ni signos de exclamación**: regla en el prompt, saludo nuevo ("Hola, bienvenido a
-  Romicars.") y, como red, `Responder en Chatwoot` borra emojis y "¡", y cambia "!" por ".".
+  Kaboom Travel.") y, como red, `Responder en Chatwoot` borra emojis y "¡", y cambia "!" por ".".
 - **Datos del cliente**: se piden como mucho dos veces, nunca en dos mensajes seguidos; la
   segunda explica para qué ("es para incluirte en nuestra base de datos..."). Después no
   insiste más. Sin probar en vivo: el contacto de prueba ya tiene todos los datos.
@@ -606,7 +606,7 @@ Rama `claude/conversations-dashboard-adjustments-bd05e6` (sin mergear ni despleg
 - **"Mías" con el bot**: el panel comparaba solo el id del asignado, y el bot 1 aparecía como
   del usuario 1. Ahora mira también `assignee_type`.
 - **Mapa**: al tocarlo (o "Ver por estado") abre un modal con los estados y sus ciudades; una
-  ciudad lista sus contactos (`GET romicars_analytics/city_contacts?labels[]=`) y lleva a su
+  ciudad lista sus contactos (`GET kaboom_analytics/city_contacts?labels[]=`) y lleva a su
   última conversación. Las ciudades que no se reconocen van en "Sin estado reconocido".
 - **Filtros del dashboard** (pestaña Operación): período (hoy, 7 días, 30 días, este mes, mes
   pasado, personalizado), canal y vendedor. La API recibe `since` / `until` (instantes ISO; la
@@ -642,11 +642,11 @@ mergeado y desplegado.
 3. **Probar la re-pregunta de datos** (pedido de la clienta, sin probar): con un contacto sin
    nombre ni ciudad, no contestar la pregunta y ver que el bot la repite solo una vez más, no en
    el mensaje siguiente, explicando para qué, y que después no insiste.
-4. **Miembros en Instagram y Facebook**: somosromicars y Romi Cars no tienen vendedores, así que lo
+4. **Miembros en Instagram y Facebook**: somoskaboom y Romi Cars no tienen vendedores, así que lo
    que el bot pasa a vendedor ahí queda sin asignar.
 5. **Marcar los agotados** en Lista de Precios (casi todo sigue `available = true`; el filtro
    #1408 sigue agotado). Importar → Descargar plantilla, NO en DISPONIBLE, subirla.
-6. **Segunda línea**: falta la plantilla `seguimiento_pedido` en la WABA "Romicars Ventas
+6. **Segunda línea**: falta la plantilla `seguimiento_pedido` en la WABA "Kaboom Travel Ventas
    Digitales".
 7. **Seguimiento encendido** (`followups_enabled: true`, 5 h de silencio): revisar las primeras
    que salgan. Que los vendedores **cierren con resultado**: sin eso el dashboard queda en 0 %.
@@ -702,7 +702,7 @@ docker exec asta_chatwoot-rails-1 bundle exec rails runner 'd=Sidekiq::DeadSet.n
       los logs de rails muestran 401 en `/webhooks/whatsapp/...`: el secreto de super admin no
       coincide con el de `Calcular Firma WA` en n8n.
 - [ ] **n8n no verifica la firma de Meta** en `Webhook Meta (POST)`: firma lo que le llegue. Quien
-      conozca `n8n.supricom.com.ve/webhook/romicars-meta-referral` puede inyectar mensajes en los
+      conozca `n8n.supricom.com.ve/webhook/kaboom-meta-referral` puede inyectar mensajes en los
       tres canales. Arreglo: opción `rawBody` en el webhook y comparar `x-hub-signature-256` contra
       el HMAC del body crudo antes del `If`. Requiere el secreto ya rotado y en credencial.
 
@@ -721,8 +721,8 @@ docker exec asta_chatwoot-rails-1 bundle exec rails runner 'd=Sidekiq::DeadSet.n
       variantes 4x4/4x2, año y caja automática cuando cambian el precio; confirmar las marcas de
       `vehicle_brands` (piden Zotye, Chana, Kia, Terios); conversaciones con proveedores sin
       etiqueta (#194, #320).
-- [ ] **Segundo número de WhatsApp** `+58 412-9876030`, WABA "Romicars Ventas Digitales"
-      (`529004876962549`), otra línea de RomiCars. Está en el portafolio pero **Fuera de
+- [ ] **Segundo número de WhatsApp** `+58 412-9876030`, WABA "Kaboom Travel Ventas Digitales"
+      (`529004876962549`), otra línea de Kaboom Travel. Está en el portafolio pero **Fuera de
       internet**: falta la conexión con coexistence. El registro insertado de Chatwoot
       (configuración `2113356415923718`) queda bloqueado con "Romi Cars no puede incorporar
       clientes" porque el portafolio **no está verificado**. Camino que funciona: QR desde la
@@ -746,7 +746,7 @@ docker exec asta_chatwoot-rails-1 bundle exec rails runner 'd=Sidekiq::DeadSet.n
       `Message.where(content: 'This message is unavailable.').group('DATE(created_at)').count`.
 - [ ] Que el job de seguimiento mande la plantilla Utility cuando la ventana esté cerrada
       (hoy cancela como `fuera_de_ventana`).
-- [ ] RuboCop: ~140 offenses, casi todas heredadas en `romicars_analytics_controller.rb`.
+- [ ] RuboCop: ~140 offenses, casi todas heredadas en `kaboom_analytics_controller.rb`.
       `lint-frontend`, `lint-backend` y `security-scan` fallan en todos los PRs por deuda anterior.
 - [ ] La barra de comandos del escritorio busca rutas que el fork quitó (captain, portals,
       attributes, automation, macros, applications) y llena la consola de errores.
@@ -757,7 +757,7 @@ docker exec asta_chatwoot-rails-1 bundle exec rails runner 'd=Sidekiq::DeadSet.n
 
 ```bash
 docker stop $(docker ps -q --filter "name=asta_chatwoot")
-docker pull ghcr.io/dsar-svg/chatwoot_romicars:latest
+docker pull ghcr.io/dsar-svg/chatwoot_kaboom:latest
 ```
 
 Y redesplegar desde EasyPanel. Las migraciones corren solas al arrancar

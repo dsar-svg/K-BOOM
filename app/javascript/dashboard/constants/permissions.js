@@ -29,7 +29,7 @@ export const REPORTS_PERMISSIONS = 'report_manage';
 
 export const PORTAL_PERMISSIONS = 'knowledge_base_manage';
 
-// RomiCars tabs: Mías, En bot, Por seguimiento, and Todos for administrators only. "Sin
+// Kaboom Travel tabs: Mías, En bot, Por seguimiento, and Todos for administrators only. "Sin
 // asignar" was dropped at the shop's request.
 export const ASSIGNEE_TYPE_TAB_PERMISSIONS = {
   me: {

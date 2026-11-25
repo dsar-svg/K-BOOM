@@ -5,7 +5,7 @@
 # Ref: https://stackoverflow.com/questions/56960709/rails-font-cors-policy
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    allowed_origins = ENV.fetch('ALLOWED_ORIGINS', 'romicars.com,app.romicars.com').split(',').map(&:strip)
+    allowed_origins = ENV.fetch('ALLOWED_ORIGINS', 'kboom-panel-gestion.8fhzvv.easypanel.host').split(',').map(&:strip)
 
     origins(*allowed_origins)
 
@@ -34,5 +34,5 @@ end
 # Rails.application.config.action_cable.url = 'wss://example.com/cable'
 
 # Action Cable - configurar orígenes permitidos en vez de deshabilitar forgery protection
-cable_allowed_origins = ENV.fetch('ALLOWED_ORIGINS', 'romicars.com,app.romicars.com').split(',').map(&:strip)
+cable_allowed_origins = ENV.fetch('ALLOWED_ORIGINS', 'kboom-panel-gestion.8fhzvv.easypanel.host').split(',').map(&:strip)
 Rails.application.config.action_cable.allowed_request_origins = cable_allowed_origins.map { |origin| "https://#{origin}" }

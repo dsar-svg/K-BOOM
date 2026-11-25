@@ -158,11 +158,11 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "You can receive emails in your custom domain now."
       }
     },
-    "UPDATE_CHATWOOT": "An update {latestChatwootVersion} for RomiCars is available. Please update your instance.",
+    "UPDATE_CHATWOOT": "An update {latestChatwootVersion} for Kaboom Travel is available. Please update your instance.",
     "LEARN_MORE": "Learn more",
-    "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using RomiCars",
-    "UPGRADE": "Upgrade to continue using RomiCars",
-    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using RomiCars",
+    "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using Kaboom Travel",
+    "UPGRADE": "Upgrade to continue using Kaboom Travel",
+    "LIMITS_UPGRADE": "Your account has exceeded the usage limits, please upgrade your plan to continue using Kaboom Travel",
     "OPEN_BILLING": "Open billing"
   },
   "FORMS": {

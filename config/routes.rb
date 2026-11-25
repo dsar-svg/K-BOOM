@@ -562,7 +562,7 @@ Rails.application.routes.draw do
               get :grouped_conversation_metrics
             end
           end
-          resources :romicars_analytics, only: [] do
+          resources :kaboom_analytics, only: [] do
             collection do
               get :overview
               get :agents

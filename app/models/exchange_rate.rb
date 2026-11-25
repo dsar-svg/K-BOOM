@@ -115,7 +115,7 @@ class ExchangeRate < ApplicationRecord
                                         open_timeout: OPEN_TIMEOUT, read_timeout: READ_TIMEOUT) do |http|
       request = Net::HTTP::Get.new(uri)
       # The BCV site answers 403 to clients without a browser-like agent.
-      request['User-Agent'] = 'Mozilla/5.0 (compatible; RomiCars/1.0)'
+      request['User-Agent'] = 'Mozilla/5.0 (compatible; Kaboom Travel/1.0)'
       response = http.request(request)
       raise "unexpected response #{response.code}" unless response.is_a?(Net::HTTPSuccess)
 

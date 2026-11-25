@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseController
+class Api::V2::Accounts::KaboomAnalyticsController < Api::V1::Accounts::BaseController
   # Profit runs on the customer's own network. Without explicit timeouts a slow or
   # unreachable host held the dashboard request open until Rack::Timeout killed it.
   PROFIT_OPEN_TIMEOUT = 5
@@ -22,7 +22,7 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
   )
 
   AI_SYSTEM_PROMPT = <<~PROMPT
-    Eres analista comercial de una tienda venezolana de repuestos automotrices (RomiCars).
+    Eres analista comercial de una tienda venezolana de repuestos automotrices (Kaboom Travel).
     Recibes métricas de su CRM y tu trabajo es explicar POR QUÉ se pierden ventas y qué
     hacer al respecto, no describir los números.
 
@@ -66,7 +66,7 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
   # The win/loss panel never lets the model produce a number: every count comes from
   # SQL and the AI only fills the narrative fields, keyed by the same motivo/clave.
   WIN_LOSS_SYSTEM_PROMPT = <<~PROMPT
-    Eres analista comercial de RomiCars, tienda venezolana de repuestos automotrices.
+    Eres analista comercial de Kaboom Travel, tienda venezolana de repuestos automotrices.
     Recibes cifras YA CALCULADAS del CRM. No recalcules ni inventes números: usa solo
     los que vienen en el JSON, y si citas uno, cítalo exacto.
 
@@ -330,7 +330,7 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
     render json: { products_top: products[:top], products_bottom: products[:bottom],
                    customers: customers, available: true }
   rescue StandardError => e
-    Rails.logger.error "RomicarsDashboard Profit error: #{e.message}"
+    Rails.logger.error "KaboomDashboard Profit error: #{e.message}"
     render json: empty_profit.merge(error: e.message)
   end
 
@@ -543,7 +543,7 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
   end
 
   def ai_insights_cache_key(account)
-    RomicarsInsightsCache.ai_insights_key(account.id)
+    KaboomInsightsCache.ai_insights_key(account.id)
   end
 
   def openai_api_key
@@ -564,7 +564,7 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
 
     { insights: insights.first(AI_INSIGHTS_COUNT), source: 'ai', generated_at: Time.current }
   rescue StandardError => e
-    Rails.logger.error "RomicarsDashboard AI insights error: #{e.class}: #{e.message}"
+    Rails.logger.error "KaboomDashboard AI insights error: #{e.class}: #{e.message}"
     # context is nil only if insights_context itself blew up; an empty card list beats a 500.
     { insights: context ? rule_based_insights(context) : [], source: 'rules', generated_at: Time.current }
   end
@@ -889,7 +889,7 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
     raw = JSON.parse(resp.body)
     raw.is_a?(Array) ? raw.first(200) : (raw['clientes'] || raw['data'] || []).first(200)
   rescue StandardError => e
-    Rails.logger.error "RomicarsCustomers Profit error: #{e.message}"
+    Rails.logger.error "KaboomCustomers Profit error: #{e.message}"
     []
   end
 
@@ -918,7 +918,7 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
   end
 
   def win_loss_cache_key(account)
-    RomicarsInsightsCache.win_loss_key(account.id)
+    KaboomInsightsCache.win_loss_key(account.id)
   end
 
   def build_win_loss(account)
@@ -958,12 +958,12 @@ class Api::V2::Accounts::RomicarsAnalyticsController < Api::V1::Accounts::BaseCo
 
     { body: body, source: 'ai', read: true }
   rescue StandardError => e
-    Rails.logger.error "RomicarsDashboard win/loss error: #{e.class}: #{e.message}"
+    Rails.logger.error "KaboomDashboard win/loss error: #{e.class}: #{e.message}"
     { body: {}, source: 'rules', read: false }
   end
 
   def win_loss_memory_key(account)
-    "romicars:win_loss:memory:v3:#{account.id}"
+    "kaboom:win_loss:memory:v3:#{account.id}"
   end
 
   # { 'perdidas' => { 'ids' => [], 'patrones' => [] }, 'ganadas' => {...}, 'narrative' => {} }

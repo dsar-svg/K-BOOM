@@ -74,7 +74,7 @@ export const colors = {
     800: slateDark.slate7,
     900: slateDark.slate2,
   },
-  // RomiCars brand red palette anchored at #E53E3E
+  // Kaboom Travel brand red palette anchored at #E53E3E
   red: {
     50:  '#FFFCFC',
     100: '#FEE8E8',

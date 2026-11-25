@@ -2,9 +2,9 @@
 import ApiClient from './ApiClient';
 
 // `params` on the Operación calls: since / until (ISO times), inbox_ids[] and agent_id.
-class RomicarsDashboardAPI extends ApiClient {
+class KaboomDashboardAPI extends ApiClient {
   constructor() {
-    super('romicars_analytics', { accountScoped: true, apiVersion: 'v2' });
+    super('kaboom_analytics', { accountScoped: true, apiVersion: 'v2' });
   }
 
   getOverview(params = {}) {
@@ -61,4 +61,4 @@ class RomicarsDashboardAPI extends ApiClient {
   }
 }
 
-export default new RomicarsDashboardAPI();
+export default new KaboomDashboardAPI();

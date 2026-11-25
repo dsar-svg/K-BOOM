@@ -78,7 +78,7 @@ const unmatched = computed(() => {
         @mouseleave="hovered = null"
       >
         <defs>
-          <filter id="romicars-heat-blur">
+          <filter id="kaboom-heat-blur">
             <feGaussianBlur stdDeviation="7" />
           </filter>
         </defs>
@@ -93,7 +93,7 @@ const unmatched = computed(() => {
 
         <!-- Heat first, blurred as one layer so neighbouring towns bleed into each other
              the way a heat map should. -->
-        <g filter="url(#romicars-heat-blur)" class="pointer-events-none">
+        <g filter="url(#kaboom-heat-blur)" class="pointer-events-none">
           <circle
             v-for="point in points"
             :key="`heat-${point.lat}-${point.lng}`"

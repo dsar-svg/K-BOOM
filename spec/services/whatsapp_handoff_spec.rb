@@ -8,7 +8,7 @@ RSpec.describe WhatsappHandoff do
     create(:channel_whatsapp, account: account, phone_number: '+584244205394', sync_templates: false, validate_provider_config: false)
   end
   let(:whatsapp_inbox) { create(:inbox, channel: whatsapp_channel, account: account) }
-  let(:instagram_inbox) { create(:inbox, account: account, name: 'Instagram Romicars') }
+  let(:instagram_inbox) { create(:inbox, account: account, name: 'Instagram Kaboom Travel') }
   let(:instagram_contact) do
     create(:contact, account: account, name: 'Ricardo', custom_attributes: { 'marca_vehiculo' => 'CHERY' })
   end
@@ -21,7 +21,7 @@ RSpec.describe WhatsappHandoff do
       expect(result[:code]).to match(/\ARC-[A-Z2-9]{5}\z/)
       expect(result[:link]).to start_with('https://wa.me/584244205394?text=')
       expect(CGI.unescape(result[:link].split('text=').last))
-        .to eq("Hola Romicars, quiero comprar sensor de cigüeñal largo para mi Chery Orinoco. Código #{result[:code]}")
+        .to eq("Hola Kaboom Travel, quiero comprar sensor de cigüeñal largo para mi Chery Orinoco. Código #{result[:code]}")
       expect(origin.reload.custom_attributes).to include('wa_code' => result[:code], 'wa_repuesto' => 'sensor de cigüeñal largo')
       expect(origin.label_list).to include(described_class::LABEL)
     end
@@ -65,7 +65,7 @@ RSpec.describe WhatsappHandoff do
     it 'joins the two contacts and closes the Instagram side as derivado' do
       code = described_class.start(origin, repuesto: 'kit de clutch')[:code]
 
-      described_class.claim(arrive_with("Hola Romicars, quiero comprar kit de clutch. Código #{code}"))
+      described_class.claim(arrive_with("Hola Kaboom Travel, quiero comprar kit de clutch. Código #{code}"))
 
       # The WhatsApp contact survives with its verified number; the name the bot asked for
       # on Instagram replaces the profile name, and the vehicle comes along.

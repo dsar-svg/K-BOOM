@@ -1,8 +1,8 @@
 {
   "id": "/app/m",
-  "name": "RomiCars",
-  "short_name": "RomiCars",
-  "description": "Atención de clientes de RomiCars desde el teléfono",
+  "name": "Kaboom Travel",
+  "short_name": "Kaboom Travel",
+  "description": "Atención de clientes de Kaboom Travel desde el teléfono",
   "start_url": "/app/m",
   "scope": "/app/",
   "display": "standalone",

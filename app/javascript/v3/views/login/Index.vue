@@ -258,28 +258,28 @@ export default {
 </script>
 
 <template>
-  <main class="romicars-login-root">
+  <main class="kaboom-login-root">
     <!-- Animated background -->
-    <div class="romicars-bg" aria-hidden="true">
-      <div class="romicars-orb orb-1" />
-      <div class="romicars-orb orb-2" />
-      <div class="romicars-orb orb-3" />
-      <div class="romicars-orb orb-4" />
+    <div class="kaboom-bg" aria-hidden="true">
+      <div class="kaboom-orb orb-1" />
+      <div class="kaboom-orb orb-2" />
+      <div class="kaboom-orb orb-3" />
+      <div class="kaboom-orb orb-4" />
       <!-- Floating particles -->
-      <div class="romicars-p p-1" />
-      <div class="romicars-p p-2" />
-      <div class="romicars-p p-3" />
-      <div class="romicars-p p-4" />
-      <div class="romicars-p p-5" />
-      <div class="romicars-p p-6" />
-      <div class="romicars-p p-7" />
-      <div class="romicars-p p-8" />
-      <div class="romicars-p p-9" />
-      <div class="romicars-p p-10" />
+      <div class="kaboom-p p-1" />
+      <div class="kaboom-p p-2" />
+      <div class="kaboom-p p-3" />
+      <div class="kaboom-p p-4" />
+      <div class="kaboom-p p-5" />
+      <div class="kaboom-p p-6" />
+      <div class="kaboom-p p-7" />
+      <div class="kaboom-p p-8" />
+      <div class="kaboom-p p-9" />
+      <div class="kaboom-p p-10" />
     </div>
 
     <!-- Session Limit Section -->
-    <section v-if="sessionsLimitReached" class="romicars-overlay-section">
+    <section v-if="sessionsLimitReached" class="kaboom-overlay-section">
       <SessionLimitOverlay
         :sessions="limitedSessions"
         @revoke="handleSessionRevoke"
@@ -289,7 +289,7 @@ export default {
     </section>
 
     <!-- MFA Verification Section -->
-    <section v-else-if="mfaRequired" class="romicars-overlay-section">
+    <section v-else-if="mfaRequired" class="kaboom-overlay-section">
       <MfaVerification
         :mfa-token="mfaToken"
         @verified="handleMfaVerified"
@@ -300,7 +300,7 @@ export default {
     <!-- Login Card -->
     <section
       v-else
-      class="romicars-card"
+      class="kaboom-card"
       :class="{ 'animate-wiggle': loginApi.hasErrored }"
     >
       <!-- Logo -->
@@ -313,10 +313,10 @@ export default {
       </div>
 
       <!-- Title & subtitle -->
-      <h1 class="romicars-title">
+      <h1 class="kaboom-title">
         {{ replaceInstallationName($t('LOGIN.TITLE')) }}
       </h1>
-      <p class="romicars-subtitle">{{ $t('LOGIN.SUBTITLE') }}</p>
+      <p class="kaboom-subtitle">{{ $t('LOGIN.SUBTITLE') }}</p>
 
       <!-- Form -->
       <div v-if="!email">
@@ -383,7 +383,7 @@ export default {
             :tabindex="3"
             :disabled="loginApi.showLoading"
             data-testid="submit_button"
-            class="romicars-submit-btn"
+            class="kaboom-submit-btn"
           >
             <Spinner
               v-if="loginApi.showLoading"
@@ -423,10 +423,10 @@ export default {
 
 <style>
 /* =============================================
-   ROMICARS LOGIN — Animated dark background
+   KABOOM LOGIN — Animated dark background
    ============================================= */
 
-.romicars-login-root {
+.kaboom-login-root {
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -439,7 +439,7 @@ export default {
 }
 
 /* ---- Animated background layer ---- */
-.romicars-bg {
+.kaboom-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -447,7 +447,7 @@ export default {
 }
 
 /* ---- Orbs ---- */
-.romicars-orb {
+.kaboom-orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
@@ -570,7 +570,7 @@ export default {
 }
 
 /* ---- Floating particles ---- */
-.romicars-p {
+.kaboom-p {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
@@ -677,7 +677,7 @@ export default {
 }
 
 /* ---- Overlay sections (MFA / session limit) ---- */
-.romicars-overlay-section {
+.kaboom-overlay-section {
   position: relative;
   z-index: 10;
   width: 100%;
@@ -687,7 +687,7 @@ export default {
 }
 
 /* ---- White card ---- */
-.romicars-card {
+.kaboom-card {
   position: relative;
   z-index: 10;
   background: #ffffff;
@@ -702,30 +702,30 @@ export default {
 }
 
 /* Force light appearance inside the white card */
-.romicars-card input[type='text'],
-.romicars-card input[type='email'],
-.romicars-card input[type='password'] {
+.kaboom-card input[type='text'],
+.kaboom-card input[type='email'],
+.kaboom-card input[type='password'] {
   background-color: #eef2f7 !important;
   color: #1e293b !important;
   border-color: #dde3ed !important;
 }
-.romicars-card input[type='text']:focus,
-.romicars-card input[type='email']:focus,
-.romicars-card input[type='password']:focus {
+.kaboom-card input[type='text']:focus,
+.kaboom-card input[type='email']:focus,
+.kaboom-card input[type='password']:focus {
   border-color: #6366f1 !important;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
   outline: none !important;
 }
-.romicars-card label {
+.kaboom-card label {
   color: #374151 !important;
 }
-.romicars-card p,
-.romicars-card span {
+.kaboom-card p,
+.kaboom-card span {
   color: inherit;
 }
 
 /* ---- Card typography ---- */
-.romicars-title {
+.kaboom-title {
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;
@@ -733,7 +733,7 @@ export default {
   letter-spacing: -0.02em;
   margin-bottom: 0.25rem;
 }
-.romicars-subtitle {
+.kaboom-subtitle {
   font-size: 0.875rem;
   text-align: center;
   color: #94a3b8;
@@ -741,7 +741,7 @@ export default {
 }
 
 /* ---- Red submit button ---- */
-.romicars-submit-btn {
+.kaboom-submit-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -761,22 +761,22 @@ export default {
     box-shadow 0.18s ease;
   letter-spacing: 0.02em;
 }
-.romicars-submit-btn:hover:not(:disabled) {
+.kaboom-submit-btn:hover:not(:disabled) {
   background: #b91c1c;
   box-shadow: 0 4px 16px rgba(220, 38, 38, 0.45);
 }
-.romicars-submit-btn:active:not(:disabled) {
+.kaboom-submit-btn:active:not(:disabled) {
   transform: scale(0.98);
 }
-.romicars-submit-btn:disabled {
+.kaboom-submit-btn:disabled {
   opacity: 0.65;
   cursor: not-allowed;
 }
 
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
-  .romicars-orb,
-  .romicars-p {
+  .kaboom-orb,
+  .kaboom-p {
     animation: none !important;
   }
 }

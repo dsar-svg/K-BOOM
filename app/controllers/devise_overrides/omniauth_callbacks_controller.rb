@@ -1,7 +1,7 @@
 class DeviseOverrides::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksController
   include EmailHelper
 
-  ALLOWED_DEEP_LINK_SCHEMES = %w[chatwootapp romicarsapp].freeze
+  ALLOWED_DEEP_LINK_SCHEMES = %w[chatwootapp kaboomapp].freeze
 
   def omniauth_success
     get_resource_from_auth_hash

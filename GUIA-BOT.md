@@ -1,13 +1,13 @@
-# Guía de RomiCars: sistema y bot de atención
+# Guía de Kaboom Travel: sistema y bot de atención
 
-Para quien administra RomiCars y para los vendedores. Explica qué hace el sistema, qué hace el
+Para quien administra Kaboom Travel y para los vendedores. Explica qué hace el sistema, qué hace el
 bot, qué deja en manos de una persona y por qué.
 
 Estado al 30/09/2026.
 
 ## 1. El sistema
 
-RomiCars corre sobre Chatwoot, una bandeja de mensajes compartida. Todas las conversaciones de
+Kaboom Travel corre sobre Chatwoot, una bandeja de mensajes compartida. Todas las conversaciones de
 Facebook, Instagram y WhatsApp llegan a un solo lugar, y cada una la atiende el bot o un vendedor.
 
 ### Bandejas (canales)
@@ -15,8 +15,8 @@ Facebook, Instagram y WhatsApp llegan a un solo lugar, y cada una la atiende el 
 | Bandeja | Canal | Bot | Quién atiende hoy |
 |---|---|---|---|
 | Romi Cars | Facebook | **activo** | el bot primero, después un vendedor |
-| somosromicars | Instagram | apagado | vendedores |
-| WABA RomiCars (+58 424-4205394) | WhatsApp | apagado | vendedores |
+| somoskaboom | Instagram | apagado | vendedores |
+| WABA Kaboom Travel (+58 424-4205394) | WhatsApp | apagado | vendedores |
 | Erdu | Facebook (página de pruebas) | — | se va a borrar |
 
 El bot se enciende por bandeja en **Ajustes → Bandejas → (bandeja) → Bot**. Encenderlo en
@@ -33,7 +33,7 @@ tienda.
 ### Asignación a vendedores
 
 - Las conversaciones se reparten **por turnos entre los vendedores conectados**, empezando por la
-  que más espera (política *Reparto RomiCars*, en las cuatro bandejas).
+  que más espera (política *Reparto Kaboom Travel*, en las cuatro bandejas).
 - Solo reciben conversaciones los vendedores que son **miembros de la bandeja** y están
   **conectados** (disponibles). Se agregan en **Ajustes → Bandejas → (bandeja) → Colaboradores**.
 - Si llega una conversación y no hay nadie conectado, queda sin asignar. El sistema lo vuelve a
@@ -49,7 +49,7 @@ tienda.
 |---|---|---|
 | `proveedor` | Proveedores de la tienda | El bot no los atiende, no reciben seguimiento, no cuentan en el dashboard |
 | `logistica` | El motorizado, delivery | Igual que proveedor |
-| `interno` | Números propios de RomiCars (el segundo WhatsApp) | Igual que proveedor |
+| `interno` | Números propios de Kaboom Travel (el segundo WhatsApp) | Igual que proveedor |
 | `derivado-whatsapp` | La pone el bot | Marca las conversaciones de Facebook/Instagram que se mandaron a WhatsApp |
 
 Las tres primeras se ponen en el **contacto**: valen para todas sus conversaciones, pasadas y
@@ -126,7 +126,7 @@ Para marcar agotados:
 
 ### App para el teléfono
 
-Los vendedores pueden instalar RomiCars como app en el teléfono: abrir
+Los vendedores pueden instalar Kaboom Travel como app en el teléfono: abrir
 `https://asta-chatwoot.larlxe.easypanel.host/app/m` en Chrome e **Instalar app** desde el menú ⋮.
 
 Trae: conversaciones (con filtro por canal y estado), responder, asignar, etiquetar, posponer y
@@ -273,7 +273,7 @@ mensaje del cliente.
 | Nombre | `seguimiento_pedido` |
 | Idioma | Español |
 | Encabezado | ninguno |
-| Cuerpo | `Hola {{1}}, te escribimos de Romicars por el {{2}} que consultaste. ¿Seguimos con tu pedido?` |
+| Cuerpo | `Hola {{1}}, te escribimos de Kaboom Travel por el {{2}} que consultaste. ¿Seguimos con tu pedido?` |
 | Ejemplo de `{{1}}` | `Ricardo` |
 | Ejemplo de `{{2}}` | `sensor de cigüeñal para Chery Orinoco` |
 | Pie | `Responde a este mensaje y te atendemos.` |

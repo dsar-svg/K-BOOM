@@ -1,15 +1,15 @@
-# RomiCars - Chatwoot Custom Deployment
+# Kaboom Travel - Chatwoot Custom Deployment
 
 ## Que es este proyecto
 
-Personalización completa de **Chatwoot v4.16.2** para la marca **RomiCars**. El sistema de atención al cliente está desplegado en un VPS usando EasyPanel con Docker Compose.
+Personalización completa de **Chatwoot v4.16.2** para la marca **Kaboom Travel**. El sistema de atención al cliente está desplegado en un VPS usando EasyPanel con Docker Compose.
 
-## Marca: RomiCars
+## Marca: Kaboom Travel
 
-- **Nombre**: RomiCars
+- **Nombre**: Kaboom Travel
 - **Color primario**: Navy Blue `#1A365D` (light) / `#3B82F6` (dark)
 - **Color secundario**: Red `#E53E3E`
-- **URL**: romicars.com
+- **URL**: kboom-panel-gestion.8fhzvv.easypanel.host
 
 ## Arquitectura de Despliegue
 
@@ -38,8 +38,8 @@ VPS (169.254.0.1)
 # Ver contenedores activos
 docker ps --format "table {{.Names}}\t{{.Status}}" | grep chatwoot
 
-# Detener los contenedores de RomiCars (asta_chatwoot-*). No usar "name=chatwoot": en el
-# mismo VPS corre otro Chatwoot (automatisupri_chatwoot) que no es de RomiCars.
+# Detener los contenedores de Kaboom Travel (asta_chatwoot-*). No usar "name=chatwoot": en el
+# mismo VPS corre otro Chatwoot (automatisupri_chatwoot) que no es de Kaboom Travel.
 docker stop $(docker ps -q --filter "name=asta_chatwoot")
 
 # Borrar imagen vieja y pull la nueva
@@ -97,7 +97,7 @@ docker exec asta_chatwoot-rails-1 bundle exec rails runner "InstallationConfig.f
 
 ### 3. Super Admin decía "Chatwoot"
 - **Problema**: `_navigation.html.erb` tenía "Chatwoot" hardcodeado
-- **Fix**: Cambiar a "RomiCars" y actualizar rutas de logo
+- **Fix**: Cambiar a "Kaboom Travel" y actualizar rutas de logo
 
 ## Estilo de Código
 
@@ -130,19 +130,19 @@ docker exec asta_chatwoot-rails-1 bundle exec rails runner "InstallationConfig.f
 
 #### Logos y nombre
 - Logo files copiados a `public/brand-assets/`
-- `installation_config.yml` actualizado con rutas PNG y nombre RomiCars
-- `BRAND_URL` y `WIDGET_BRAND_URL` actualizados a romicars.com
+- `installation_config.yml` actualizado con rutas PNG y nombre Kaboom Travel
+- `BRAND_URL` y `WIDGET_BRAND_URL` actualizados a kboom-panel-gestion.8fhzvv.easypanel.host
 - Meta tags en `vueapp.html.erb` actualizados con color brand
 - Versión cambiada de `4.16.2` a `1.0.0` en `config/app.yml`
 
 #### Super Admin
-- `_navigation.html.erb` actualizado con nombre RomiCars y logo PNG
+- `_navigation.html.erb` actualizado con nombre Kaboom Travel y logo PNG
 - Login Super Admin (`sessions/new.html.erb`) actualizado con logo PNG
-- Onboarding page actualizado con RomiCars
+- Onboarding page actualizado con Kaboom Travel
 
 #### Favicons
 - Todos los favicons reemplazados con `logo.png`
-- `manifest.json` actualizado con nombre y colores RomiCars
+- `manifest.json` actualizado con nombre y colores Kaboom Travel
 
 #### Sidebar
 - Logo size aumentado de `size-4` (16px) a `size-5` (20px)
@@ -156,5 +156,5 @@ archivo describe cómo está montado el proyecto, ese otro describe en qué se e
 ## Pendiente
 
 - [ ] Verificar que los favicons se muestran correctamente después del deploy
-- [ ] Confirmar que el sidebar del Super Admin muestra "RomiCars 1.0.0"
+- [ ] Confirmar que el sidebar del Super Admin muestra "Kaboom Travel 1.0.0"
 - [ ] probar el flujo completo de login → dashboard → configuración

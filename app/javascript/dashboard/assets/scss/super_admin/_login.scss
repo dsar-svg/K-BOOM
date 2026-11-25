@@ -1,17 +1,17 @@
-.romicars-sa-orbs {
+.kaboom-sa-orbs {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
 }
 
-.romicars-sa-orb {
+.kaboom-sa-orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(90px);
 }
 
-.romicars-sa-orb-1 {
+.kaboom-sa-orb-1 {
   width: 55vw;
   height: 55vw;
   background: rgba(52, 77, 221, 0.14);
@@ -20,7 +20,7 @@
   animation: sa-orb-drift-1 26s ease-in-out infinite alternate;
 }
 
-.romicars-sa-orb-2 {
+.kaboom-sa-orb-2 {
   width: 38vw;
   height: 38vw;
   background: rgba(10, 229, 161, 0.12);
@@ -29,7 +29,7 @@
   animation: sa-orb-drift-2 32s ease-in-out infinite alternate;
 }
 
-.romicars-sa-orb-3 {
+.kaboom-sa-orb-3 {
   width: 28vw;
   height: 28vw;
   background: rgba(30, 154, 206, 0.10);
@@ -55,5 +55,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .romicars-sa-orb { animation: none !important; }
+  .kaboom-sa-orb { animation: none !important; }
 }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'RomiCars Analytics API', type: :request do
+RSpec.describe 'Kaboom Travel Analytics API', type: :request do
   let(:account) { create(:account) }
   let!(:admin) { create(:user, account: account, role: :administrator) }
 
@@ -13,7 +13,7 @@ RSpec.describe 'RomiCars Analytics API', type: :request do
     conversation
   end
 
-  describe 'GET /api/v2/accounts/{account.id}/romicars_analytics/win_loss' do
+  describe 'GET /api/v2/accounts/{account.id}/kaboom_analytics/win_loss' do
     let!(:lost_with_chat) do
       create(:conversation, account: account, status: :resolved, resolution_type: 'perdido',
                             resolution_reason: 'precio', resolved_at: 1.day.ago)
@@ -37,7 +37,7 @@ RSpec.describe 'RomiCars Analytics API', type: :request do
 
     context 'when it is an unauthenticated user' do
       it 'returns unauthorized' do
-        get "/api/v2/accounts/#{account.id}/romicars_analytics/win_loss"
+        get "/api/v2/accounts/#{account.id}/kaboom_analytics/win_loss"
 
         expect(response).to have_http_status(:unauthorized)
       end
@@ -46,7 +46,7 @@ RSpec.describe 'RomiCars Analytics API', type: :request do
     context 'when OpenAI is not configured' do
       it 'returns the counts with the static narrative' do
         with_modified_env OPENAI_API_KEY: nil do
-          get "/api/v2/accounts/#{account.id}/romicars_analytics/win_loss",
+          get "/api/v2/accounts/#{account.id}/kaboom_analytics/win_loss",
               headers: admin.create_new_auth_token, as: :json
         end
 
@@ -104,7 +104,7 @@ RSpec.describe 'RomiCars Analytics API', type: :request do
       # the SQL produced them even though the answer never carries them.
       it 'uses the AI narrative but keeps the counts from the database' do
         with_modified_env OPENAI_API_KEY: 'test-key' do
-          get "/api/v2/accounts/#{account.id}/romicars_analytics/win_loss",
+          get "/api/v2/accounts/#{account.id}/kaboom_analytics/win_loss",
               headers: admin.create_new_auth_token, as: :json
         end
 
@@ -134,9 +134,9 @@ RSpec.describe 'RomiCars Analytics API', type: :request do
       # would send the very same transcripts to the model again.
       it 'does not send conversations it already read' do
         with_modified_env OPENAI_API_KEY: 'test-key' do
-          get "/api/v2/accounts/#{account.id}/romicars_analytics/win_loss",
+          get "/api/v2/accounts/#{account.id}/kaboom_analytics/win_loss",
               headers: admin.create_new_auth_token, as: :json
-          get "/api/v2/accounts/#{account.id}/romicars_analytics/win_loss",
+          get "/api/v2/accounts/#{account.id}/kaboom_analytics/win_loss",
               params: { refresh: 1 }, headers: admin.create_new_auth_token, as: :json
         end
 
@@ -157,12 +157,12 @@ RSpec.describe 'RomiCars Analytics API', type: :request do
         'perdidas' => { 'ids' => [15], 'patrones' => [{ 'hallazgo' => 'Viejo', 'conversaciones' => [15] }] },
         'narrative' => { 'perdidas' => { 'resumen' => 'Se perdieron todas las consultas', 'patrones' => [] } }
       }
-      Redis::Alfred.setex("romicars:win_loss:memory:v3:#{account.id}", memory.to_json, 1.day.to_i)
+      Redis::Alfred.setex("kaboom:win_loss:memory:v3:#{account.id}", memory.to_json, 1.day.to_i)
     end
 
     it 'does not describe closes that are no longer there' do
       with_modified_env OPENAI_API_KEY: 'test-key' do
-        get "/api/v2/accounts/#{account.id}/romicars_analytics/win_loss",
+        get "/api/v2/accounts/#{account.id}/kaboom_analytics/win_loss",
             params: { refresh: 1 }, headers: admin.create_new_auth_token, as: :json
       end
 
@@ -182,10 +182,10 @@ RSpec.describe 'RomiCars Analytics API', type: :request do
     # 1 buyer out of 3 leads. Won over won + lost (50%) is the close rate, a different figure.
     it 'reports the same conversion in Operación and in the win/loss panel' do
       with_modified_env OPENAI_API_KEY: nil do
-        get "/api/v2/accounts/#{account.id}/romicars_analytics/overview", headers: admin.create_new_auth_token, as: :json
+        get "/api/v2/accounts/#{account.id}/kaboom_analytics/overview", headers: admin.create_new_auth_token, as: :json
         expect(response.parsed_body['kpis']['conversion']).to eq(33.3)
 
-        get "/api/v2/accounts/#{account.id}/romicars_analytics/win_loss", headers: admin.create_new_auth_token, as: :json
+        get "/api/v2/accounts/#{account.id}/kaboom_analytics/win_loss", headers: admin.create_new_auth_token, as: :json
       end
 
       expect(response.parsed_body['ganadas']).to include('tasa_conversion_pct' => 33.3, 'tasa_de_cierre_pct' => 50.0)

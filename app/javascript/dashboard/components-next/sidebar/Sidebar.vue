@@ -366,8 +366,8 @@ const menuItems = computed(() => {
       name: 'Analytics',
       label: t('SIDEBAR.ANALYTICS'),
       icon: 'i-lucide-layout-dashboard',
-      to: accountScopedRoute('romicars_analytics'),
-      activeOn: ['romicars_analytics'],
+      to: accountScopedRoute('kaboom_analytics'),
+      activeOn: ['kaboom_analytics'],
     },
     {
       name: 'Inbox',
@@ -693,13 +693,13 @@ const menuItems = computed(() => {
           to: accountScopedRoute('conversation_reports'),
         },
         ...reportRoutes.value,
-        // Encuestas de Satisfacción - oculto para RomiCars
+        // Encuestas de Satisfacción - oculto para Kaboom Travel
         // {
         //   name: 'Reports CSAT',
         //   label: t('SIDEBAR.CSAT'),
         //   to: accountScopedRoute('csat_reports'),
         // },
-        // SLA - oculto para RomiCars
+        // SLA - oculto para Kaboom Travel
         // {
         //   name: 'Reports SLA',
         //   label: t('SIDEBAR.REPORTS_SLA'),
@@ -880,7 +880,7 @@ const menuItems = computed(() => {
           icon: 'i-lucide-shield-plus',
           to: accountScopedRoute('custom_roles_list'),
         },
-        // SLA - oculto para RomiCars
+        // SLA - oculto para Kaboom Travel
         // {
         //   name: 'Settings Sla',
         //   label: t('SIDEBAR.SLA'),
