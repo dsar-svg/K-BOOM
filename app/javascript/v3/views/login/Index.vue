@@ -432,7 +432,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0C1234;
+  background: #0c1234;
   position: relative;
   overflow: hidden;
   padding: 2rem 1rem;
@@ -712,7 +712,7 @@ export default {
 .kaboom-card input[type='text']:focus,
 .kaboom-card input[type='email']:focus,
 .kaboom-card input[type='password']:focus {
-  border-color: #5B6DEA !important;
+  border-color: #5b6dea !important;
   box-shadow: 0 0 0 3px rgba(52, 77, 221, 0.18) !important;
   outline: none !important;
 }
@@ -748,7 +748,7 @@ export default {
   gap: 0.5rem;
   width: 100%;
   padding: 0.8rem 1rem;
-  background: #344DDD;
+  background: #344ddd;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -762,7 +762,7 @@ export default {
   letter-spacing: 0.02em;
 }
 .kaboom-submit-btn:hover:not(:disabled) {
-  background: #2A3EBC;
+  background: #2a3ebc;
   box-shadow: 0 4px 16px rgba(52, 77, 221, 0.45);
 }
 .kaboom-submit-btn:active:not(:disabled) {
