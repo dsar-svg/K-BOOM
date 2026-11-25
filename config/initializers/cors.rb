@@ -3,9 +3,23 @@
 
 # font cors issue with CDN
 # Ref: https://stackoverflow.com/questions/56960709/rails-font-cors-policy
+# Which origins the browser may call us from. ALLOWED_ORIGINS still wins when it is
+# set. When it is not, the host comes from FRONTEND_URL, so the allowlist follows the
+# deployment instead of a domain written down here that quietly goes stale.
+cw_frontend_host = begin
+  URI.parse(ENV.fetch('FRONTEND_URL', '').to_s).host
+rescue URI::InvalidURIError
+  nil
+end
+
+cw_allowed_origins = ENV
+                     .fetch('ALLOWED_ORIGINS') { cw_frontend_host.presence || 'localhost' }
+                     .split(',').map { |origin| origin.strip.sub(%r{\A\w+://}, '') }.reject(&:empty?)
+cw_allowed_origins = ['localhost'] if cw_allowed_origins.empty?
+
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    allowed_origins = ENV.fetch('ALLOWED_ORIGINS', 'kboom-panel-gestion.8fhzvv.easypanel.host').split(',').map(&:strip)
+    allowed_origins = cw_allowed_origins
 
     origins(*allowed_origins)
 
@@ -34,5 +48,6 @@ end
 # Rails.application.config.action_cable.url = 'wss://example.com/cable'
 
 # Action Cable - configurar orígenes permitidos en vez de deshabilitar forgery protection
-cable_allowed_origins = ENV.fetch('ALLOWED_ORIGINS', 'kboom-panel-gestion.8fhzvv.easypanel.host').split(',').map(&:strip)
-Rails.application.config.action_cable.allowed_request_origins = cable_allowed_origins.map { |origin| "https://#{origin}" }
+# Same list, as full origins. The scheme is stripped above, so a value that already
+# carries one does not end up as https://https://host.
+Rails.application.config.action_cable.allowed_request_origins = cw_allowed_origins.map { |origin| "https://#{origin}" }
