@@ -23,10 +23,22 @@ class AgentBotInbox < ApplicationRecord
 
   # Disconnecting the bot from an inbox left the conversations it already held assigned to it, and
   # the bot kept answering them. They go to the sellers instead, the same as any handover.
-  after_destroy_commit :release_conversations
-  after_update_commit :release_conversations, if: -> { saved_change_to_status? && inactive? }
+  #
+  # One method name per event on purpose. after_*_commit callbacks share a single chain and
+  # ActiveSupport keys them by the filter, so registering the same symbol twice keeps only the
+  # last one: with both pointing at :release_conversations, the destroy hook never ran.
+  after_destroy_commit :release_conversations_on_destroy
+  after_update_commit :release_conversations_on_deactivate, if: -> { saved_change_to_status? && inactive? }
 
   private
+
+  def release_conversations_on_destroy
+    release_conversations
+  end
+
+  def release_conversations_on_deactivate
+    release_conversations
+  end
 
   def release_conversations
     Conversations::ReleaseBotJob.perform_later(inbox_id, agent_bot_id)
